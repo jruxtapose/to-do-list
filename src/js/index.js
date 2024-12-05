@@ -1,3 +1,3 @@
 import "../css/styles.css";
-
-console.log("Hello world.");
+import { createTask, getAllTasks, getTask } from "./classes/tasks.js";
+import * as domManipulator from "./classes/dommanipulator.js";

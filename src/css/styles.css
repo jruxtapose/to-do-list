@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 7fr;
+}
+
+div .sidebar{
+    background-color: blue;
+}
+
+main{
+    background-color: yellow;
+}
+
+#tasklist{
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+}
+
+
+.task-item{
+    display: grid;
+    grid-template-columns: 25em 50em 10em;
+    padding: 15px 0;
+}
+
+.task-item:nth-child(odd){
+    background-color: orange;
+}
+
+#create-new-task-form{
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 80%;
+    width: 80%;
+    overflow: auto;
+    background-color: white;
+    margin: 35px;
+    border: 1px solid black;
+    padding: 25px;
+}

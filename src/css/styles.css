@@ -8,34 +8,14 @@ body{
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 7fr;
+    background-color: red;
 }
 
-div .sidebar{
-    background-color: blue;
+#new-task-modal-template{
+    display:none;
 }
 
-main{
-    background-color: yellow;
-}
-
-#tasklist{
-    display: flex;
-    flex-direction: column;
-    list-style-type: none;
-}
-
-
-.task-item{
-    display: grid;
-    grid-template-columns: 25em 50em 10em;
-    padding: 15px 0;
-}
-
-.task-item:nth-child(odd){
-    background-color: orange;
-}
-
-#create-new-task-form{
+#new-task-modal{
     position: fixed;
     z-index: 1;
     left: 0;

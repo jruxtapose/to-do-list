@@ -4,12 +4,16 @@ import { getAllTasks, createTask, clearTasks } from "./tasks.js";
 const compareCurrentToLocal = () => {
     if(getAllTasks() && localStorage.getItem('saved-tasks')){
         if(JSON.stringify(getAllTasks()) === localStorage.getItem('saved-tasks')){
-            console.log('Current tasks and saved tasks are the same.')
+            return true;
         }else{
-            console.log('Current tasks and saved tasks differ.')
+            return false;
         }
     }else{
-        console.log('Either no current tasks or no saved tasks')
+        if(!getAllTasks()){
+            alert('No tasks in current session.');
+        }else if (!localStorage.getItem('saved-tasks')){
+            alert('No tasks saved to local storage.');
+        }
     }
 }
 
@@ -17,7 +21,7 @@ const compareCurrentToLocal = () => {
 const saveTasks = () => {
     if(getAllTasks()){
         const tasksJSON = JSON.stringify(getAllTasks());
-        localStorage.setItem('saved-tasks', tasksJSON)
+        localStorage.setItem('saved-tasks', tasksJSON);
     }else{
         console.log('No tasks to save.');
     }

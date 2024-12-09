@@ -1,23 +1,43 @@
-import TaskHandler from "./taskhandler";
-const taskHandler = new TaskHandler();
+// Exported function is a switch that calls the requested method of sorting. taskHandler instance is passed into this as an argument to ensure only one instance
+// of the taskhandler needs to be created.
 
-const filterByProject = (project) => {
+export default function filterTasks(taskHandler, filter, project, priority){
+
+    switch(filter){
+        case 'all':
+            return taskHandler.getAllTasks();
+        case 'today':
+            return filterByToday(taskHandler);
+        case 'nextSevenDays':
+            return filterByNextSevenDays(taskHandler);
+        case 'overdue':
+            return filterByOverDue(taskHandler);
+        case 'priority':
+            return filterByPriority(taskHandler, priority);
+        case 'project':
+            return filterByProject(taskHandler, project);
+        default:
+            throw console.error('Invalid filter method');
+    }
+}
+
+const filterByProject = (taskHandler, project) => {
     return taskHandler.getAllTasks().filter((task) => task.getProject() === project);
 }
 
-const filterByPriority = (priority) => {
+const filterByPriority = (taskHandler, priority) => {
     return taskHandler.getAllTasks().filter((task) => task.getPriority() === priority);
 }
 
-const filterByOverDue = () => {
-    today = new Date();
+const filterByOverDue = (taskHandler) => {
+    const today = new Date();
     return taskHandler.getAllTasks().filter((task) => {
         const dueDate = new Date(task.getDueDate());
         return dueDate < today;
     });
 }
 
-const filterByToday = () => {
+const filterByToday = (taskHandler) => {
     const today = new Date();
     return taskHandler.getAllTasks().filter((task) => {
         const dueDate = new Date(task.getDueDate());
@@ -29,7 +49,7 @@ const filterByToday = () => {
     })
 }
 
-const filterByNextSevenDays = () => {
+const filterByNextSevenDays = (taskHandler) => {
     const today = new Date();
     const sevenDaysFromNow = new Date();
     sevenDaysFromNow.setDate(today.getDate() + 7);
@@ -38,21 +58,4 @@ const filterByNextSevenDays = () => {
         const dueDate = new Date(task.getDueDate());
         return dueDate >= today && dueDate <= sevenDaysFromNow;
     });
-}
-
-export default function filterProjects(filter, project, priority){
-    switch(filter){
-        case 'all':
-            return taskHandler.getAllTasks();
-        case 'today':
-            return filterByToday();
-        case 'nextSevenDays':
-            return filterByNextSevenDays;
-        case 'overdue':
-            return filterByOverDue;
-        case 'priority':
-            return filterByPriority(priority);
-        case 'project':
-            return filterByProject(project);
-    }
 }

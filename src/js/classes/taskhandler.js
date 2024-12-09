@@ -1,12 +1,36 @@
+import { loadProjects, loadTasks, saveProjects, saveTasks } from "./localstorage";
+import Task from "./task";
+
 export default class TaskHandler{
     constructor(){
-        this.tasks = [];
-        this.projects = [];
+        // Check localStorage and load existing tasks/projects. Initialize array as empty if error is thrown due to data not existing.
+        try {
+            this.tasks = loadTasks().map(taskData => {
+                const task = new Task(
+                    taskData._title,
+                    taskData._description,
+                    taskData._dueDate,
+                    taskData._priority,
+                    taskData._complete
+                );
+                task.setProject(taskData._project);
+                return task;
+            });
+        } catch (error) {
+            this.tasks = []
+        }
+
+        try {
+            this.projects = loadProjects();
+        } catch (error){
+            this.projects = [];
+        }
     }
 
     // Push a new task or remove a task(after checking that it exists in the array);
     addNewTask(task){
         this.tasks.push(task);
+        saveTasks(this.tasks);
     }
 
     removeTask(task){
@@ -14,30 +38,35 @@ export default class TaskHandler{
         if(index > -1){
             this.tasks.splice(index, 1);
         };
+        saveTasks(this.tasks);
     }
 
     // Set or un-set a project for a task
 
     setProjectToTask(project, task){
         task.setProject(project);
+        saveTasks(this.tasks);
     }
 
     removeProjectFromTask(project, task){
         if(task.getProject() === project){
             task.removeProject();
         }
+        saveTasks(this.tasks);
     }
 
     // Add/remove a project
 
     addNewProject(project){
-        this.projects.push(projects);
+        this.projects.push(project);
+        saveProjects(this.projects)
     }
 
     removeProject(project){
         index = projects.indexOf(project);
         if(index > -1){
             this.projects.splice(index, 1);
+            saveProjects(this.projects);
         }
     }
 

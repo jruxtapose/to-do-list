@@ -1,48 +1,37 @@
-import { getAllTasks, createTask, clearTasks } from "./tasks.js";
+// Save tasks and projects to stringified JSON.
 
-// Compare current tasks to saved tasks to determine if action should be taken.
-const compareCurrentToLocal = () => {
-    if(getAllTasks() && localStorage.getItem('saved-tasks')){
-        if(JSON.stringify(getAllTasks()) === localStorage.getItem('saved-tasks')){
-            return true;
-        }else{
-            return false;
-        }
-    }else{
-        if(!getAllTasks()){
-            alert('No tasks in current session.');
-        }else if (!localStorage.getItem('saved-tasks')){
-            alert('No tasks saved to local storage.');
-        }
-    }
+const saveTasks = (taskList) => {
+    const tasksJSON = JSON.stringify(taskList);
+    localStorage.setItem('saved-tasks', tasksJSON);
 }
 
-// Convert all existing tasks (if any) to JSON and save to local storage
-const saveTasks = () => {
-    if(getAllTasks()){
-        const tasksJSON = JSON.stringify(getAllTasks());
-        localStorage.setItem('saved-tasks', tasksJSON);
-    }else{
-        console.log('No tasks to save.');
-    }
+const saveProjects = (projectList) => {
+    const projectsJSON = JSON.stringify(projectList);
+    localStorage.setItem('saved-projects', projectsJSON);
 }
 
-// Pull all saved tasks (if any) from JSON and regenerate Task objects.
+// Pull all saved tasks & projects from JSON and parse.
+
+
 const loadTasks = () => {
-    if(localStorage.getItem('saved-tasks')){
-        clearTasks();
-        const loadedArray = JSON.parse(localStorage.getItem('saved-tasks'));
-        for(const task in loadedArray){
-            const thisTask = loadedArray[task];
-            createTask(thisTask.title, thisTask.description, thisTask.dueDate, thisTask.priority, thisTask.complete);
-        }
+    if(!localStorage.getItem('saved-tasks')){
+        throw console.error('No tasks found in local storage.');
     }else{
-        console.log('No tasks to load.');
+        return JSON.parse(localStorage.getItem('saved-tasks'));
+    }
+}
+
+const loadProjects = () => {
+    if(!localStorage.getItem('saved-projects')){
+        throw console.error('No projects found in local storage.');
+    }else{
+        return JSON.parse(localStorage.getItem('saved-projects'));
     }
 }
 
 export{
     saveTasks,
+    saveProjects,
     loadTasks,
-    compareCurrentToLocal
+    loadProjects
 }

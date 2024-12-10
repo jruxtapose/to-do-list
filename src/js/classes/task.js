@@ -2,66 +2,66 @@
 // Contains all information and methods for each task
 export default class Task{
     constructor(title, description, dueDate, priority, complete){
-        this.title = title,
-        this.description = description,
-        this.dueDate = dueDate,
-        this.priority = priority,
-        this.complete = complete;
-        this.project = null;
+        this._title = title,
+        this._description = description,
+        this._dueDate = dueDate,
+        this._priority = priority,
+        this._complete = complete;
+        this._project = null;
     }
 
     // Get/Set each property
 
-    getTaskTitle(){
-        return this.title;
+    getTitle(){
+        return this._title;
     }
 
-    setTaskTitle(newTitle){
-        this.title = newTitle;
+    setTitle(newTitle){
+        this._title = newTitle;
     }
 
-    getTaskDescription(){
-        return this.description;
+    getDescription(){
+        return this._description;
     }
 
-    setTaskDescription(newDescription){
-        this.description = newDescription;
+    setDescription(newDescription){
+        this._description = newDescription;
     }
 
     getDueDate(){
-        return this.dueDate;
+        return this._dueDate;
     }
 
     setDueDate(newDueDate){
-        this.dueDate = newDueDate;
+        this._dueDate = newDueDate;
     }
 
     getPriority(){
-        return this.priority;
+        return this._priority;
     }
 
     setPriority(newPriority){
-        this.priority = newPriority;
+        this._priority = newPriority;
     }
 
     getComplete(){
-        return this.complete;
+        return this._complete;
     }
 
     toggleComplete(){
-        this.complete = !this.complete;
+        this._complete = !this._complete;
     }
 
     getProject(){
-        return this.project;
+        return this._project;
     }
 
     setProject(newProject){
-        this.project = newProject;
+        this._project = newProject;
     }
 
     removeProject(){
-        this.project = null;
+        this._project = null;
     }
 
 }

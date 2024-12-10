@@ -6,13 +6,8 @@ export default class TaskHandler{
         // Check localStorage and load existing tasks/projects. Initialize array as empty if error is thrown due to data not existing.
         try {
             this.tasks = loadTasks().map(taskData => {
-                const task = new Task(
-                    taskData._title,
-                    taskData._description,
-                    taskData._dueDate,
-                    taskData._priority,
-                    taskData._complete
-                );
+                const task = new Task(taskData._title, taskData._description, taskData._dueDate, taskData._priority, taskData._complete);
+                console.log(task);
                 task.setProject(taskData._project);
                 return task;
             });
@@ -27,8 +22,12 @@ export default class TaskHandler{
         }
     }
 
-    // Push a new task or remove a task(after checking that it exists in the array);
-    addNewTask(task){
+    // Create/Push a new task or remove a task(after checking that it exists in the array);
+    createTask(title, description, dueDate, priority, complete){
+        return new Task(title, description, dueDate, priority, complete);
+    }
+    
+    addTask(task){
         this.tasks.push(task);
         saveTasks(this.tasks);
     }
@@ -37,8 +36,8 @@ export default class TaskHandler{
         index = this.tasks.indexOf(task);
         if(index > -1){
             this.tasks.splice(index, 1);
+            saveTasks(this.tasks);
         };
-        saveTasks(this.tasks);
     }
 
     // Set or un-set a project for a task
@@ -51,8 +50,8 @@ export default class TaskHandler{
     removeProjectFromTask(project, task){
         if(task.getProject() === project){
             task.removeProject();
+            saveTasks(this.tasks);
         }
-        saveTasks(this.tasks);
     }
 
     // Add/remove a project

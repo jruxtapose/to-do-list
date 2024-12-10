@@ -6,13 +6,19 @@
     <title>test</title>
 </head>
 <body>
-    <header></header>
-    <main></main>
-    <footer>Developed by Jruxtapose</footer>
-    <div id="modify-task-details-template"></div>
+    <div id="sidebar">
+        <ul id="navigation-buttons">
+            <button id="add-task-button">Add Task</button>
+        </ul>
+    </div>
+    <main id="content">
+        <ul id="task-list"></ul>
+    </main>
+    <footer><p>Developed by Jruxtapose</p></footer>
+    <div id="modify-task-modal-template"></div>
     <div id="new-task-modal-template">
         <span id="new-task-heading">New Task</span>
-        <button id="close-new-project-modal">x</button>
+        <button id="close-modal">x</button>
         <form action="#" method="get" class="new-task-form">
             <ul>
                 <div class="new-task-title-container">
@@ -40,8 +46,8 @@
                     <input type="radio" name="new-task-priority" id="new-task-high-priority" class="task-high-priority">
                 </div>
                 <div class="form-buttons">
-                    <button type="submit">Save</button>
-                    <button id="cancel-new-task-creation">Cancel</button>
+                    <button type="submit" id="save-new-task">Save</button>
+                    <button id="cancel-modal">Cancel</button>
                 </div>
 
 

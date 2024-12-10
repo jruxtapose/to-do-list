@@ -1,106 +1,100 @@
-import { getAllTasks, getTask, createTask } from "./tasks.js";
-import { saveTasks, loadTasks } from "./localstorage.js";
+import TaskHandler from "./taskhandler";
+import filterTasks from "./filtertasks";
+import sortTasks from "./sorttasks";
 
-// Define content areas
-const sidebar = document.querySelector('.sidebar');
+const taskHandler = new TaskHandler();
 
-const content = document.querySelector('.content');
+const taskDetailTemplate = document.querySelector('#modify-task-modal-template');
+const newTaskTemplate = document.querySelector('#new-task-modal-template');
 
-// Create function buttons in sidebar
-const sidebarButtons = (() => {
-    // Create button to load saved tasks from local storage, will be automated later
-    const loadButton = document.createElement('button');
-    loadButton.id = 'load-tasks';
-    loadButton.textContent = 'Load Tasks';
-    loadButton.addEventListener('click', () => {
-        loadTasks();
-        refreshTasks();
-    });
+taskDetailTemplate.remove();
+newTaskTemplate.remove();
 
-    // Create Button to save current tasks to local storage, will be automated later
-    const saveButton = document.createElement('button');
-    saveButton.id = 'save-tasks';
-    saveButton.textContent = 'Save Tasks';
-    saveButton.addEventListener('click', () => saveTasks());
-
-    
-    const createTaskButton = document.createElement('button');
-    createTaskButton.id = 'create-task';
-    createTaskButton.textContent = 'Add new task'
-    createTaskButton.onclick = function(){
-        createTaskButton.disabled = true;
-        createTaskForm();
+class Modal{
+    constructor(template, triggerButtonID, modalType){
+        this.template = template;
+        this.triggerButton = document.querySelector(triggerButtonID);
+        this.modal = null;
+        this.modalType = modalType;
+        this.triggerButton.addEventListener('click', () => this.openModal());
     }
 
-    const refreshButton = document.createElement('button');
-    refreshButton.textContent = 'Refresh'
-    refreshButton.addEventListener('click', () => refreshTasks());
-    
-    sidebar.append(loadButton, saveButton, createTaskButton, refreshButton);
+    openModal() {
+        const mainWindow = document.querySelector('#content')
+        this.triggerButton.disabled = true;
+        this.modal = this.template.cloneNode(true);
+        this.modal.id = this.modalType === 'new-task' ? 'new-task-modal' : 'modify-task-modal';
+        mainWindow.appendChild(this.modal);
 
-})()
+        const closeButton = this.modal.querySelector('#close-modal');
+        const cancelButton = this.modal.querySelector('#cancel-modal')
+        closeButton.addEventListener('click', () => this.closeModal());
+        cancelButton.addEventListener('click', () => this.closeModal());
+    }
 
-const generateNewTask = () => {
-
+    closeModal() {
+        this.modal.remove();
+        this.triggerButton.disabled = false;
+        this.modal = null;
+    }
 }
 
-// Element creator (to simplify creating dom elements)
-function createElement(tag, classes = [], attributes = {}){
-    const newElement = document.createElement(tag);
-    classes.forEach(cls => newElement.classList.add(cls));
-    Object.keys(attributes).forEach(attr => Element.setAttribute(attr, attributes[attr]));
-    return newElement;
-}
+const sidebarFunctionality = (() => {
+    const newTaskModal = new Modal(newTaskTemplate, '#add-task-button', 'new-task');
+})();
 
-// Clear the content window and reload all tasks
-const refreshTasks = () => {
-    content.textContent = '';
-    loadTasksDom();
-}
+const renderTasks = ((taskList) => {
+    const taskListContainer = document.querySelector('#task-list');
+    taskListContainer.textContent = '';
+    console.log(taskList);
+    taskList.forEach(task => {
+        const listItem = document.createElement('li');
+        listItem.className = 'task'
 
-const drawTask = (task) => {
-    const taskList = document.querySelector('#tasklist');
-    const thisTask = getTask(task);
+        const taskTitle = document.createElement('div');
+        taskTitle.className = 'task-title'
+        taskTitle.textContent = task.getTitle();
+        listItem.appendChild(taskTitle);
 
-    const taskContainer = document.createElement('li');
-    taskContainer.className = 'task-item';
+        const taskDescription = document.createElement('div');
+        taskDescription.className = 'task-description';
+        taskDescription.textContent = task.getDescription();
+        listItem.appendChild(taskDescription);
 
-    const taskTitle = document.createElement('div');
-    taskTitle.className = 'task-title';
-    taskTitle.textContent = thisTask.title;
+        const taskPriority = document.createElement('div');
+        taskPriority.className = 'task-priority';
+        if(task.getPriority() === 1){
+            taskPriority.textContent = 'Low';
+            taskPriority.classList.add('low-priority');
+        }else if(task.getPriority() === 2){
+            taskPriority.textContent = 'Medium';
+            taskPriority.classList.add('medium-priority');
+        }else if(task.getPriority() === 3){
+            taskPriority.textContent = 'High'
+            taskPriority.classList.add('high-priority');
+        };
+        listItem.appendChild(taskPriority);
 
-    const taskDescription = document.createElement('div');
-    taskDescription.className = 'task-description';
-    taskDescription.textContent = thisTask.description;
+        const taskComplete = document.createElement('div');
+        taskComplete.className = 'task-complete';
+        if(task.getComplete()){
+            taskComplete.textContent = 'Complete';
+        }else{
+            taskComplete.textContent = 'Incomplete';
+        };
+        listItem.appendChild(taskComplete);
 
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete task';
-    deleteButton.className = 'delete-task-button';
-
-    deleteButton.addEventListener('click', () => {
-        if(confirm('Are you sure you want to delete this task?')){
-            if(thisTask){
-                thisTask.removeTask();
-                taskContainer.remove();
-                console.log(getAllTasks());
-            }
+        if(task.getProject()){
+            const taskProject = document.createElement('div');
+            taskProject.className = 'task-project';
+            taskProject.textContent = task.getProject();
+            listItem.appendChild(taskProject);
         }
+
+        taskListContainer.appendChild(listItem);
     });
-    
-    taskContainer.append(taskTitle, taskDescription, deleteButton);
-    taskList.appendChild(taskContainer)
-}
+});
 
-// Render all tasks to the DOM
-const loadTasksDom = () => {
-    const taskList = document.createElement('ul');
-    taskList.id = 'tasklist'
-    content.appendChild(taskList);
-    for(const task in getAllTasks()){
-        drawTask(task);
+const defaultList = filterTasks(taskHandler, 'all', null, null);
 
-    }
-}
-
-// Initial content load
-loadTasksDom();
+renderTasks(defaultList);

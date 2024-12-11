@@ -33,7 +33,7 @@ export default class TaskHandler{
     }
 
     removeTask(task){
-        index = this.tasks.indexOf(task);
+        const index = this.tasks.indexOf(task);
         if(index > -1){
             this.tasks.splice(index, 1);
             saveTasks(this.tasks);

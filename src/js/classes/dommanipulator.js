@@ -18,6 +18,12 @@ class Modal{
         this.modalType = modalType;
         this.triggerButton.addEventListener('click', () => this.openModal());
     }
+    
+    handleEscape(event){
+        if(event.key === 'Escape') {
+            this.closeModal();
+        }
+    }
 
     openModal() {
         const mainWindow = document.querySelector('#content')
@@ -43,7 +49,92 @@ const sidebarFunctionality = (() => {
     const newTaskModal = new Modal(newTaskTemplate, '#add-task-button', 'new-task');
 })();
 
-const renderTasks = ((taskList) => {
+const newRenderTasks = (taskList) => {
+    const taskListContainer = document.querySelector('#task-list-table');
+    taskListContainer.textContent = '';
+    const generateTableHeaders = (() => {
+        const headerRow = document.createElement('tr');
+
+        const titleCell = document.createElement('th');
+        titleCell.textContent = 'Title';
+        
+        const descriptionCell = document.createElement('th');
+        descriptionCell.textContent = 'Description';
+        
+        const projectCell = document.createElement('th');
+        projectCell.textContent = 'Project';
+        
+        const dueDateCell = document.createElement('th');
+        dueDateCell.textContent = 'Due Date'
+        
+        const priorityCell = document.createElement('th');
+        priorityCell.textContent = 'Cell';
+        
+        const completeCell = document.createElement('th');
+        completeCell.textContent = 'Complete'
+        
+        const buttonCell = document.createElement('th');
+
+        headerRow.append(titleCell, descriptionCell, projectCell, dueDateCell, priorityCell, completeCell, buttonCell);
+        taskListContainer.appendChild(headerRow);
+    })();
+
+    taskList.forEach((task) => {
+        const taskRow = document.createElement('tr');
+
+        const titleCell = document.createElement('td');
+        titleCell.textContent = task.getTitle();
+
+        const descriptionCell = document.createElement('td');
+        descriptionCell.textContent = task.getDescription();
+
+        const projectCell = document.createElement('td');
+        projectCell.textContent = task.getProject();
+
+        const dueDateCell = document.createElement('td');
+        if(task.getDueDate()){
+            dueDateCell.textContent = task.getDueDate();
+        }
+
+        const priorityCell = document.createElement('td');
+        if(task.getPriority() === 1){
+            priorityCell.textContent = 'Low';
+        } else if (task.getPriority() === 2) {
+            priorityCell.textContent = 'Medium';
+        } else if (task.getPriority() === 3) {
+            priorityCell.textContent = 'High';
+        }
+
+        const completeCell = document.createElement('td');
+        if(task.getComplete()){
+            completeCell.textContent = 'Complete';
+        } else {
+            completeCell.textContent = 'Incomplete';
+        }
+
+        const buttonCell = document.createElement('td');
+        const modifyTaskButton = document.createElement('button');
+        modifyTaskButton.className = 'modify-task';
+        modifyTaskButton.textContent = 'Modify'
+
+        const deleteTaskButton = document.createElement('button');
+        deleteTaskButton.className = 'delete-task';
+        deleteTaskButton.textContent = 'Delete';
+        deleteTaskButton.addEventListener('click', () => {
+            if(confirm('Are you sure?')){
+                taskHandler.removeTask(task);
+                taskRow.remove();
+            }
+        });
+        buttonCell.append(modifyTaskButton, deleteTaskButton);
+
+        taskRow.append(titleCell, descriptionCell, projectCell, dueDateCell, priorityCell, completeCell, buttonCell);
+
+        taskListContainer.appendChild(taskRow);
+    })
+}
+
+const renderTasks = (taskList) => {
     const taskListContainer = document.querySelector('#task-list');
     taskListContainer.textContent = '';
     console.log(taskList);
@@ -91,10 +182,25 @@ const renderTasks = ((taskList) => {
             listItem.appendChild(taskProject);
         }
 
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'task-buttons'
+
+        const editButton = document.createElement('button');
+        editButton.className = 'edit-task-button';
+
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'delete-task-button';
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', () => {
+            if(confirm('Are you sure?')){
+                taskHandler.removeTask(task);
+                listItem.remove();
+            }
+        })
+        listItem.appendChild(deleteButton);
+
         taskListContainer.appendChild(listItem);
     });
-});
+};
 
-const defaultList = filterTasks(taskHandler, 'all', null, null);
-
-renderTasks(defaultList);
+newRenderTasks((filterTasks(taskHandler, 'all', null, 3)));

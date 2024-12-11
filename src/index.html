@@ -12,15 +12,18 @@
         </ul>
     </div>
     <main id="content">
-        <ul id="task-list"></ul>
+        <table id="task-list-table">
+
+        </table>
     </main>
     <footer><p>Developed by Jruxtapose</p></footer>
     <div id="modify-task-modal-template"></div>
     <div id="new-task-modal-template">
-        <span id="new-task-heading">New Task</span>
-        <button id="close-modal">x</button>
-        <form action="#" method="get" class="new-task-form">
-            <ul>
+        <header id="new-task-header">
+            <span id="new-task-heading">New Task</span>
+            <button id="close-modal">x</button>
+        </header>
+        <form action="#" method="get" id="new-task-form">
                 <div class="new-task-title-container">
                     <label for="new-task-title">Title:</label>
                     <input type="text" name="new-task-title" id="new-task-title" required>
@@ -49,9 +52,6 @@
                     <button type="submit" id="save-new-task">Save</button>
                     <button id="cancel-modal">Cancel</button>
                 </div>
-
-
-            </ul>
         </form>
     </div>
 </body>

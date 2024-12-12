@@ -58,7 +58,7 @@ footer{
     display:none;
 }
 
-#new-task-modal{
+/* #new-task-modal{
     position: fixed;
     z-index: 1;
     left: 50%;
@@ -109,4 +109,19 @@ footer{
 
 #new-task-form .new-task-priority-container{
     flex-direction: row;
+} */
+
+#modify-task-modal{
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50px;
+    height: 500px;
+    width: 500px;
+    resize: both;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid black;
+
 }

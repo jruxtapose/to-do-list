@@ -1,4 +1,4 @@
-import { loadProjects, loadTasks, saveProjects, saveTasks } from "./localstorage";
+import { loadProjects, loadTasks, saveProjects, saveTasks } from "../../functions/localstorage";
 import Task from "./task";
 
 export default class TaskHandler{
@@ -20,6 +20,12 @@ export default class TaskHandler{
         } catch (error){
             this.projects = [];
         }
+    }
+
+    // Toggle task completion and save
+    toggleTaskComplete(task){
+        task.toggleComplete();
+        saveTasks(this.tasks);
     }
 
     // Create/Push a new task or remove a task(after checking that it exists in the array);

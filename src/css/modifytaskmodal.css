@@ -1,0 +1,52 @@
+#modify-task-modal{
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50px;
+    height: 500px;
+    width: 500px;
+    resize: both;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid black;
+
+}
+
+#modify-task-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 15px;
+    background-color: lightgray;
+    margin-bottom: 25px;
+    user-select: none;
+}
+
+#close-modal{
+    background-color: transparent;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+#modify-task-form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
+}
+
+#modify-task-form div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#modify-task-form textarea{
+    height: 100px;
+}
+
+#modify-task-form .modify-task-priority-container{
+    flex-direction: row;
+}

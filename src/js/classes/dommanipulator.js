@@ -11,18 +11,13 @@ taskDetailTemplate.remove();
 newTaskTemplate.remove();
 
 class Modal{
-    constructor(template, triggerButtonID, modalType){
+    constructor(template, triggerButton, modalType, task){
         this.template = template;
-        this.triggerButton = document.querySelector(triggerButtonID);
+        this.triggerButton = triggerButton;
         this.modal = null;
         this.modalType = modalType;
         this.triggerButton.addEventListener('click', () => this.openModal());
-    }
-    
-    handleEscape(event){
-        if(event.key === 'Escape') {
-            this.closeModal();
-        }
+        this.task = task;
     }
 
     openModal() {
@@ -46,10 +41,11 @@ class Modal{
 }
 
 const sidebarFunctionality = (() => {
-    const newTaskModal = new Modal(newTaskTemplate, '#add-task-button', 'new-task');
+    const addNewTaskButton = document.querySelector('#add-task-button');
+    const newTaskModal = new Modal(newTaskTemplate, addNewTaskButton, 'new-task');
 })();
 
-const newRenderTasks = (taskList) => {
+const renderTasks = (taskList) => {
     const taskListContainer = document.querySelector('#task-list-table');
     taskListContainer.textContent = '';
     const generateTableHeaders = (() => {
@@ -68,7 +64,7 @@ const newRenderTasks = (taskList) => {
         dueDateCell.textContent = 'Due Date'
         
         const priorityCell = document.createElement('th');
-        priorityCell.textContent = 'Cell';
+        priorityCell.textContent = 'Priority';
         
         const completeCell = document.createElement('th');
         completeCell.textContent = 'Complete'
@@ -126,6 +122,9 @@ const newRenderTasks = (taskList) => {
                 taskRow.remove();
             }
         });
+
+        //const modifyTaskModal = new Modal(modifyTaskModal, modifyTaskButton, 'modify-task', task);
+
         buttonCell.append(modifyTaskButton, deleteTaskButton);
 
         taskRow.append(titleCell, descriptionCell, projectCell, dueDateCell, priorityCell, completeCell, buttonCell);
@@ -133,74 +132,9 @@ const newRenderTasks = (taskList) => {
         taskListContainer.appendChild(taskRow);
     })
 }
+const defaultList = filterTasks(taskHandler, 'all', null, 1);
+const sortMethod = 'priority';
+const sortDirection = 'dsc';
+sortTasks(defaultList, sortMethod, sortDirection);
 
-const renderTasks = (taskList) => {
-    const taskListContainer = document.querySelector('#task-list');
-    taskListContainer.textContent = '';
-    console.log(taskList);
-    taskList.forEach(task => {
-        const listItem = document.createElement('li');
-        listItem.className = 'task'
-
-        const taskTitle = document.createElement('div');
-        taskTitle.className = 'task-title'
-        taskTitle.textContent = task.getTitle();
-        listItem.appendChild(taskTitle);
-
-        const taskDescription = document.createElement('div');
-        taskDescription.className = 'task-description';
-        taskDescription.textContent = task.getDescription();
-        listItem.appendChild(taskDescription);
-
-        const taskPriority = document.createElement('div');
-        taskPriority.className = 'task-priority';
-        if(task.getPriority() === 1){
-            taskPriority.textContent = 'Low';
-            taskPriority.classList.add('low-priority');
-        }else if(task.getPriority() === 2){
-            taskPriority.textContent = 'Medium';
-            taskPriority.classList.add('medium-priority');
-        }else if(task.getPriority() === 3){
-            taskPriority.textContent = 'High'
-            taskPriority.classList.add('high-priority');
-        };
-        listItem.appendChild(taskPriority);
-
-        const taskComplete = document.createElement('div');
-        taskComplete.className = 'task-complete';
-        if(task.getComplete()){
-            taskComplete.textContent = 'Complete';
-        }else{
-            taskComplete.textContent = 'Incomplete';
-        };
-        listItem.appendChild(taskComplete);
-
-        if(task.getProject()){
-            const taskProject = document.createElement('div');
-            taskProject.className = 'task-project';
-            taskProject.textContent = task.getProject();
-            listItem.appendChild(taskProject);
-        }
-
-        const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'task-buttons'
-
-        const editButton = document.createElement('button');
-        editButton.className = 'edit-task-button';
-
-        const deleteButton = document.createElement('button');
-        deleteButton.className = 'delete-task-button';
-        deleteButton.textContent = 'Delete';
-        deleteButton.addEventListener('click', () => {
-            if(confirm('Are you sure?')){
-                taskHandler.removeTask(task);
-                listItem.remove();
-            }
-        })
-        listItem.appendChild(deleteButton);
-
-        taskListContainer.appendChild(listItem);
-    });
-};
-
-newRenderTasks((filterTasks(taskHandler, 'all', null, 3)));
+renderTasks(defaultList);

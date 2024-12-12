@@ -16,7 +16,13 @@ body{
     background-color: green;
 }
 
-#content{
+#task-list-table{
+    width: 100%;
+    margin: 15px;
+}
+
+#task-list-table > tr:nth-child(odd){
+    background-color: lightgray;
 }
 
 .medium-priority{

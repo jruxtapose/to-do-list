@@ -18,8 +18,8 @@ export default class NewTaskModal{
         this.modal.id = 'new-task-modal';
         document.body.appendChild(this.modal);
 
-        const closeButton = this.modal.querySelector('#close-modal');
-        const cancelButton = this.modal.querySelector('#cancel-modal');
+        const closeButton = this.modal.querySelector('.close-modal');
+        const cancelButton = this.modal.querySelector('.cancel-modal');
         const addTaskForm = this.modal.querySelector('#new-task-form');
         addTaskForm.addEventListener('submit', (e) => this.addTask(e))
 

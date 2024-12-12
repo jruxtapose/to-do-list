@@ -22,9 +22,31 @@ export default class TaskHandler{
         }
     }
 
-    // Toggle task completion and save
-    toggleTaskComplete(task){
-        task.toggleComplete();
+    // Update task properties and save;
+    updateTaskProperty(task, property, newValue){
+        switch(property){
+            case 'title':
+                task.setTitle(newValue);
+                break;
+            case 'description':
+                task.setDescription(newValue);
+                break;
+            case 'dueDate':
+                task.setDueDate(newValue);
+                break;
+            case 'priority':
+                task.setPriority(newValue);
+                break;
+            case 'complete':
+                task.toggleComplete();
+                break;
+            case 'project':
+                if(newValue){
+                    task.setProject(newValue);
+                } else {
+                    task.removeProject();
+                }
+        }
         saveTasks(this.tasks);
     }
 

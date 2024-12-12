@@ -58,22 +58,35 @@ footer{
     display:none;
 }
 
-/* #new-task-modal{
+#modify-task-modal-template{
+    display: none;
+}
+
+.modal-overlay{
     position: fixed;
-    z-index: 1;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 50px;
-    height: 500px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding-top: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.modal-content{
     width: 500px;
     resize: both;
     overflow: auto;
     background-color: white;
     border: 1px solid black;
-
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
-#new-task-header{
+.modal-header{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -83,45 +96,9 @@ footer{
     user-select: none;
 }
 
-#close-modal{
+.close-modal{
     background-color: transparent;
     border: none;
     font-size: 1.2em;
     cursor: pointer;
-}
-
-#new-task-form{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 0 15px;
-}
-
-#new-task-form div{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-#new-task-form textarea{
-    height: 100px;
-}
-
-#new-task-form .new-task-priority-container{
-    flex-direction: row;
-} */
-
-#modify-task-modal{
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 50px;
-    height: 500px;
-    width: 500px;
-    resize: both;
-    overflow: auto;
-    background-color: white;
-    border: 1px solid black;
-
 }

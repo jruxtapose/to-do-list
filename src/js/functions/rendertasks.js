@@ -74,7 +74,7 @@ const renderTask = (task, taskHandler) => {
     toggleCompleteButton.className = 'toggle-complete';
     toggleCompleteButton.textContent = 'Toggle Complete'
     toggleCompleteButton.addEventListener('click', () => {
-        taskHandler.toggleTaskComplete(task);
+        taskHandler.updateTaskProperty(task, 'complete');
         if(task.getComplete()){
             completeCell.textContent = 'Complete';
         } else {

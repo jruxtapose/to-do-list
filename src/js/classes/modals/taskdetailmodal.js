@@ -20,8 +20,8 @@ export default class TaskDetailModal{
 
         this.populateForm();
 
-        const closeButton = this.modal.querySelector('#close-modal');
-        const cancelButton = this.modal.querySelector('#cancel-modal');
+        const closeButton = this.modal.querySelector('.close-modal');
+        const cancelButton = this.modal.querySelector('.cancel-modal');
 
         closeButton.addEventListener('click', () => this.closeModal());
         cancelButton.addEventListener('click', () => this.closeModal());

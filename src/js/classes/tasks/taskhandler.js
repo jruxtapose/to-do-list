@@ -1,6 +1,16 @@
 import { loadProjects, loadTasks, saveProjects, saveTasks } from "../../functions/localstorage";
 import Task from "./task";
 
+function debounce(func, delay){
+    let timeOutID;
+    return function(){
+        clearTimeout(timeOutID);
+        timeOutID = setTimeout(() => {
+            func.apply(this, arguments);
+        }, delay);
+    };
+}
+
 export default class TaskHandler{
     constructor(){
         // Check localStorage and load existing tasks/projects. Initialize array as empty if error is thrown due to data not existing.
@@ -47,7 +57,8 @@ export default class TaskHandler{
                     task.removeProject();
                 }
         }
-        saveTasks(this.tasks);
+        const debouncedSave = debounce(saveTasks, 300);
+        debouncedSave(this.tasks);
     }
 
     // Create/Push a new task or remove a task(after checking that it exists in the array);

@@ -16,8 +16,12 @@ export default class NewProjectModal{
         this.modal.id = 'new-project-modal';
         document.body.appendChild(this.modal);
 
-        const closeButton = this.modal.querySelector('#close-modal');
-        const cancelButton = this.modal.querySelector('#cancel-modal');
+        const closeButton = this.modal.querySelector('.close-modal');
+        const cancelButton = this.modal.querySelector('.cancel-modal');
+
+        const newProjectForm = this.modal.querySelector('#add-project-form');
+        newProjectForm.addEventListener('submit', (e) => this.handleSubmit(e));
+        
 
         closeButton.addEventListener('click', () => this.closeModal());
         cancelButton.addEventListener('click', () => this.closeModal());
@@ -27,5 +31,13 @@ export default class NewProjectModal{
         this.modal.remove();
         this.triggerButton.disabled = false;
         this.modal = null;
+    }
+
+    handleSubmit(event){
+        event.preventDefault();
+
+        const title = this.modal.querySelector('#add-project-title').value;
+        this.taskHandler.addNewProject(title);
+        this.closeModal();
     }
 }

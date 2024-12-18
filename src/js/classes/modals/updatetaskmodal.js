@@ -1,11 +1,11 @@
-import "../../../css/modifytaskmodal.css"
-const taskDetailTemplate = document.querySelector('#modify-task-modal-template');
-taskDetailTemplate.remove();
+import "../../../css/updatetaskmodal.css"
+const updateTaskModalTemplate = document.querySelector('#modify-task-modal-template');
+updateTaskModalTemplate.remove();
 
-export default class TaskDetailModal{
+export default class UpdateTaskModal{
     constructor(task, triggerButton, taskHandler){
         this.triggerButton = triggerButton;
-        this.template = taskDetailTemplate;
+        this.template = updateTaskModalTemplate;
         this.modal = null;
         this.taskHandler = taskHandler;
         this.task = task;
@@ -27,6 +27,14 @@ export default class TaskDetailModal{
         this.mediumPriorityRadio = this.modal.querySelector('#modify-task-medium-priority');
         this.highPriorityRadio = this.modal.querySelector('#modify-task-high-priority');
         this.triggerButton.disabled = true;
+
+        const projects = this.taskHandler.getAllProjects();
+        projects.forEach(project => {
+            const option = document.createElement('option');
+            option.value = project;
+            option.textContent = project;
+            this.projectSelect.appendChild(option);
+        })
 
         this.populateForm();
 

@@ -17,7 +17,6 @@ export default class TaskHandler{
         try {
             this.tasks = loadTasks().map(taskData => {
                 const task = new Task(taskData._title, taskData._description, taskData._dueDate, taskData._priority, taskData._complete);
-                console.log(task);
                 task.setProject(taskData._project);
                 return task;
             });
@@ -100,11 +99,31 @@ export default class TaskHandler{
         saveProjects(this.projects)
     }
 
-    removeProject(project){
-        index = projects.indexOf(project);
+    removeProject(project, container){
+        let assignedToTasks = false;
+        this.tasks.forEach(task => {
+            if (task.getProject() === project){
+                assignedToTasks = true;
+            }
+        });
+        const index = this.projects.indexOf(project);
         if(index > -1){
-            this.projects.splice(index, 1);
-            saveProjects(this.projects);
+            let assignedToTasks = false;
+            this.tasks.forEach(task => {
+                if (task.getProject() === project){
+                    assignedToTasks = true;
+                }
+            });
+
+            if (assignedToTasks) {
+                alert('Project currently has tasks.')
+            } else {
+                this.projects.splice(index, 1);
+                if (container) {
+                    container.remove();
+                }
+                saveProjects(this.projects);
+            }
         }
     }
 

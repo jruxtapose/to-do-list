@@ -14,33 +14,63 @@ body{
 
 #sidebar{
     background-color: green;
-
-}
-
-button{
-    cursor: pointer;
-}
-
-#navigation-buttons{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding-top: 10px;
-    display: flex;
+    justify-content: space-between;
+    padding: 15px 10px;
 }
 
-#navigation-buttons button{
-    text-align: left;
-    width: 50%;
+.sidebar-projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#add-project-button {
+    height: 2em;
+    width: 2em;
+}
+
+.sidebar-projects-list {
+    padding-left: 15px;
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 15px;
+}
+
+.project{
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding-right: 25px;
+}
+
+.delete-project {
+    width: 2em;
     background-color: transparent;
     border: none;
 }
 
-#navigation-buttons button svg{
-    height: 25px;
+.delete-project svg{
+    fill: white;
+}
+
+#add-task-button {
+    height: 2em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-task-button svg {
+    width: 2em;
+}
+
+button{
+    cursor: pointer;
 }
 
 .table-container{

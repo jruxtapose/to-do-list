@@ -1,4 +1,4 @@
-import TaskDetailModal from "../classes/modals/taskdetailmodal";
+import UpdateTaskModal from "../classes/modals/updatetaskmodal";
 
 const taskListContainer = document.querySelector('#task-list-table');
 const renderTasks = (taskList, taskHandler) => {
@@ -92,7 +92,7 @@ const renderTask = (task, taskHandler) => {
     modifyTaskButton.className = 'modify-task';
     modifyTaskButton.textContent = 'Modify'
 
-    const taskDetailModal = new TaskDetailModal(task, modifyTaskButton, taskHandler);
+    const updateTaskModal = new UpdateTaskModal(task, modifyTaskButton, taskHandler);
 
     const deleteTaskButton = document.createElement('button');
     deleteTaskButton.className = 'delete-task';

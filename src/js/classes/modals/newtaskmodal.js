@@ -18,6 +18,16 @@ export default class NewTaskModal{
         this.modal.id = 'new-task-modal';
         document.body.appendChild(this.modal);
 
+        const projectsSelect = this.modal.querySelector('#new-task-project');
+        const projects = this.taskHandler.getAllProjects();
+
+        projects.forEach(project => {
+            const option = document.createElement('option');
+            option.value = project;
+            option.textContent = project;
+            projectsSelect.appendChild(option);
+        })
+
         const closeButton = this.modal.querySelector('.close-modal');
         const cancelButton = this.modal.querySelector('.cancel-modal');
         const addTaskForm = this.modal.querySelector('#new-task-form');
@@ -39,7 +49,7 @@ export default class NewTaskModal{
         const title = this.modal.querySelector('#new-task-title').value;
         const description = this.modal.querySelector('#new-task-description').value;
         const dueDate = this.modal.querySelector('#new-task-duedate').value;
-
+        const project = this.modal.querySelector('#new-task-project').value;
         //Get selected priority
         let priority;
         if(this.modal.querySelector('#new-task-low-priority').checked){
@@ -50,10 +60,19 @@ export default class NewTaskModal{
             priority = 3;
         }
 
+        if (project.value !== 0) {
+
+        }
+
         const complete = false;
 
         const newTask = this.taskHandler.createTask(title, description, dueDate, priority, complete);
         this.taskHandler.addTask(newTask);
+
+        if (project.value !== 0) {
+            this.taskHandler.setProjectToTask(project, newTask);
+        }
+
         renderTask(newTask, this.taskHandler);
         this.closeModal();
 

@@ -5,8 +5,12 @@ import NewProjectModal from "./classes/modals/newprojectmodal";
 import filterTasks from "./functions/filtertasks";
 import sortTasks from "./functions/sorttasks";
 import { renderTasks } from "./functions/rendertasks";
+import { format } from "date-fns";
 
 const taskHandler = new TaskHandler();
+const today = new Date()
+const todayDisplay = document.querySelector('#today-date');
+todayDisplay.textContent = format(today, 'eeee MMMM dd, yyyy');
 
 const newTaskButton = document.querySelector('#add-task-button');
 const newTaskModal = new NewTaskModal(newTaskButton, taskHandler);

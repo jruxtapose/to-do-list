@@ -8,7 +8,7 @@
   body {
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 1.3fr 7fr;
+    grid-template-columns: 1.5fr 7fr;
     grid-template-rows: 1fr 50px;
   }
   
@@ -19,6 +19,15 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 15px 10px;
+  }
+
+  #today-date-container {
+    font-size: 1.1em;
+    padding-bottom: 10px;
+  }
+
+  #today-date {
+    font-weight: bold;
   }
 
   .page-buttons {

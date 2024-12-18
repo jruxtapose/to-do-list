@@ -138,13 +138,6 @@ export default class UpdateTaskModal{
             priorityCell.textContent = 'High';
         }
 
-        const completeCell = taskElement.querySelector('.task-complete');
-        if (this.task.getComplete()) {
-            completeCell.textContent = 'Complete';
-        } else {
-            completeCell.textContent = 'Incomplete';
-        }
-
         this.closeModal();
 
 

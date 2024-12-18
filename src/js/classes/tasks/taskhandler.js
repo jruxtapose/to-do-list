@@ -81,8 +81,10 @@ export default class TaskHandler{
     // Set or un-set a project for a task
 
     setProjectToTask(project, task){
-        task.setProject(project);
-        saveTasks(this.tasks);
+        if (project !== '0') {
+            task.setProject(project);
+            saveTasks(this.tasks);
+        }
     }
 
     removeProjectFromTask(project, task){

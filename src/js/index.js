@@ -17,15 +17,36 @@ const newProjectModal = new NewProjectModal(newProjectButton, taskHandler);
 const projectsListContainer = document.querySelector('.sidebar-projects-list')
 const projectsList = taskHandler.getAllProjects();
 
+const allTasksButton = document.querySelector('#show-all-tasks');
+allTasksButton.addEventListener('click', () => {
+    currentFilter = defaultFilter;
+    currentSort = defaultSort;
+    currentSortDirection = defaultSortDirection;
+    currentProject = '';
+    currentPriority = '';
+    renderCurrentTasks();
+})
+
+const overDueTasksButton = document.querySelector('#show-overdue-tasks');
+overDueTasksButton.addEventListener('click', () => {
+    currentFilter = 'overdue'
+    renderCurrentTasks();
+})
+
 if (projectsList){
     projectsList.forEach(project => {
         const projectDisplay = document.createElement('div');
         projectDisplay.className = 'project';
         
-        const projectTitle = document.createElement('div');
-        projectTitle.className = 'project-title';
-        projectTitle.textContent = `#${project}`;
-        projectDisplay.appendChild(projectTitle);
+        const projectButton = document.createElement('button');
+        projectButton.className = 'project-button';
+        projectButton.textContent = `#${project}`;
+        projectButton.addEventListener('click', () => {
+            currentFilter = 'project';
+            currentProject = project;
+            renderCurrentTasks();
+        })
+        projectDisplay.appendChild(projectButton);
 
         const deleteProjectButton = document.createElement('button');
         deleteProjectButton.className = 'delete-project';
@@ -51,7 +72,11 @@ let currentSortDirection = defaultSortDirection;
 let currentProject;
 let currentPriority;
 
-const taskList = filterTasks(taskHandler, currentFilter);
-sortTasks(taskList, currentSort, currentSortDirection);
+function renderCurrentTasks(){
+    const taskList = filterTasks(taskHandler, currentFilter, currentProject, currentPriority);
+    sortTasks(taskList, currentSort, currentSortDirection);
 
-renderTasks(taskList, taskHandler)
+    renderTasks(taskList, taskHandler);
+}
+
+renderCurrentTasks();

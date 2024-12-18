@@ -60,16 +60,12 @@ export default class NewTaskModal{
             priority = 3;
         }
 
-        if (project.value !== 0) {
-
-        }
-
         const complete = false;
 
         const newTask = this.taskHandler.createTask(title, description, dueDate, priority, complete);
         this.taskHandler.addTask(newTask);
 
-        if (project.value !== 0) {
+        if (project.value !== '0') {
             this.taskHandler.setProjectToTask(project, newTask);
         }
 

@@ -11,7 +11,7 @@ const saveProjects = (projectList) => {
 }
 
 // Pull all saved tasks & projects from JSON and parse.
-const defaultTasksJSON = '[{"_title":"Demo Task","_description":"This is a task for demonstration purposes","_dueDate":"2024-12-10T03:59:56.431Z","_priority":3,"_complete":false,"_project":null},{"_title":"Demo Task2","_description":"This is a task for demonstration purposes","_dueDate":"2024-12-10T04:02:30.925Z","_priority":2,"_complete":false,"_project":null},{"_title":"Demo Task3","_description":"This is a task for demonstration purposes","_dueDate":"2024-12-10T04:02:54.846Z","_priority":1,"_complete":false,"_project":null},{"_title":"Demo Task4","_description":"This is a task for demonstration purposes","_dueDate":"2024-12-10T04:03:00.333Z","_priority":2,"_complete":false,"_project":null},{"_title":"Demo Task5","_description":"This is a task for demonstration purposes","_dueDate":"2024-12-10T04:03:11.652Z","_priority":3,"_complete":false,"_project":null},{"_title":"Demo Task6","_description":"This is a task for demonstration purposes","_dueDate":"2024-12-10T04:03:19.270Z","_priority":3,"_complete":false,"_project":null},{"_title":"Demo Task7","_description":"This is a task for demonstration purposes","_dueDate":"2024-12-10T04:04:15.037Z","_priority":3,"_complete":false,"_project":null},{"_title":"Demo Task8","_description":"This is a task for demonstration purposes","_dueDate":"2024-12-10T04:04:50.981Z","_priority":3,"_complete":false,"_project":null}]'
+const defaultTasksJSON = '[{"_title":"Very late thing","_description":"I was due a WHILE ago.","_dueDate":"2024-09-10","_priority":3,"_complete":false,"_project":null,"domElement":{}},{"_title":"Do random thing","_description":"","_dueDate":"2024-12-06","_priority":2,"_complete":false,"_project":"Random Project","domElement":{}},{"_title":"Do small thing","_description":"","_dueDate":"2024-12-26","_priority":1,"_complete":false,"_project":"Small Project","domElement":{}},{"_title":"Do big thing","_description":"","_dueDate":"2024-12-31","_priority":3,"_complete":false,"_project":"Big Project","domElement":{}},{"_title":"No due date","_description":"I\'m due whenever.","_dueDate":"","_priority":1,"_complete":false,"_project":null,"domElement":{}},{"_title":"Complete Task","_description":"I\'m done. Yay.","_dueDate":"2024-12-31","_priority":3,"_complete":true,"_project":"Big Project","domElement":{}}]'
 
 const loadTasks = () => {
     if(!localStorage.getItem('saved-tasks')){
@@ -22,7 +22,7 @@ const loadTasks = () => {
     }
 }
 
-const defaultProjectsJSON = '["Test","test2","test3"]'
+const defaultProjectsJSON = '["Big Project","Small Project","Random Project"]'
 
 const loadProjects = () => {
     if(!localStorage.getItem('saved-projects')){

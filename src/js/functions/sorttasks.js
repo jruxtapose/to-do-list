@@ -26,13 +26,32 @@ const defaultSort = (taskList) => {
 
 const sortByDate = (taskList, direction) => {
     taskList.sort((a, b) => {
-        const dueDateA = new Date(a.getDueDate());
-        const dueDateB = new Date(b.getDueDate());
+        const dueDateA = a.getDueDate();
+        const dueDateB = b.getDueDate();
+        const completeA = a.getComplete();
+        const completeB = b.getComplete();
+
+        if (completeA && !completeB) {
+            return 1;
+        } else if (!completeA && completeB) {
+            return -1;
+        }
+
+        if (!dueDateA && !dueDateB) {
+            return 0;
+        } else if (!dueDateA) {
+            return 1;
+        } else if (!dueDateB) {
+            return -1;
+        }
+
+        const dateA = new Date(dueDateA);
+        const dateB = new Date(dueDateB);
 
         if (direction === 'asc'){
-            return dueDateA - dueDateB;
+            return dateA - dateB;
         } else {
-            return dueDateB - dueDateA;
+            return dateB - dateA;
         }
     });
 };

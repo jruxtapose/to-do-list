@@ -32,6 +32,9 @@ const filterByPriority = (taskHandler, priority) => {
 const filterByOverDue = (taskHandler) => {
     const today = new Date();
     return taskHandler.getAllTasks().filter((task) => {
+        if (task.getComplete()) {
+            return false;
+        }
         const dueDate = new Date(task.getDueDate());
         return dueDate < today;
     });

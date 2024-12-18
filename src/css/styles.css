@@ -1,106 +1,155 @@
-*{
+/* General Styles */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body{
+  }
+  
+  body {
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1.3fr 7fr;
     grid-template-rows: 1fr 50px;
-
-}
-
-#sidebar{
+  }
+  
+  /* Sidebar Styles */
+  #sidebar {
     background-color: green;
-
-}
-
-button{
-    cursor: pointer;
-}
-
-#navigation-buttons{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10px;
+  }
+
+  .page-buttons {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
     gap: 10px;
     padding-top: 10px;
-    display: flex;
-}
+  }
 
-#navigation-buttons button{
-    text-align: left;
-    width: 50%;
-    display: flex;
-    align-items: center;
+  .page-buttons button {
     background-color: transparent;
     border: none;
-}
+    text-align: left;
+    font-size: 1.2em;
+  }
+  
+  .sidebar-projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  #add-project-button {
+    height: 2em;
+    width: 2em;
+  }
+  
+  .sidebar-projects-list {
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 15px;
+  }
+  
+  .project {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 25px;
+  }
+  
+  .project-button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2em;
+  }
+  
+  .delete-project {
+    width: 2em;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .delete-project svg {
+    fill: white;
+  }
 
-#navigation-buttons button svg{
-    height: 25px;
-}
-
-.table-container{
+  .delete-project svg:hover {
+    fill: gray;
+  }
+  
+  #add-task-button {
+    height: 2em;
+    width: 100%;
     display: flex;
     justify-content: center;
-}
-
-#task-list-table{
+    align-items: center;
+  }
+  
+  #add-task-button svg {
+    width: 2em;
+  }
+  
+  /* Task List Styles */
+  .table-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  #task-list-table {
     width: 80%;
     margin: 15px;
     text-align: center;
-}
-
-tr{
+  }
+  
+  tr {
     border-top-left-radius: 25px;
     border: 1px solid black;
-}
-
-#task-list-table > tr:nth-child(odd){
+  }
+  
+  #task-list-table>tr:nth-child(odd) {
     background-color: lightgray;
-}
-
-.medium-priority{
+  }
+  
+  /* Task Due Date and Completion Styles */
+  #task-list-table tr.task-is-complete .task-due-date,
+  #task-list-table tr.task-is-complete { /* Combined selectors */
+    color: gray;
+    text-decoration: line-through;
+  }
+  
+  #task-list-table tr.overdue-task .task-due-date {
+    color: red;
+  }
+  
+  #task-list-table tr.task-is-complete .priority {
+    color: gray;
+  }
+  
+  /* Task Priority Styles */
+  .high-priority-task>.task-priority {
+    color: red;
+  }
+  
+  .medium-priority-task>.task-priority {
     color: orange;
-}
-
-footer{
-    background-color: lightgray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    grid-column: 1/3;
-    font-weight: bold;
-}
-
-
-.task{
-    display: flex;
-}
-
-.task:nth-child(odd){
-    background-color: rgba(0, 0, 0, 10%);
-}
-
-.task{
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 15px;
-}
-
-#new-task-modal-template{
-    display:none;
-}
-
-#modify-task-modal-template{
+  }
+  
+  .low-priority-task>.task-priority {
+    color: green;
+  }
+  
+  /* Modal Styles */
+  #new-task-modal-template,
+  #modify-task-modal-template {
     display: none;
-}
-
-.modal-overlay{
+  }
+  
+  .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -111,9 +160,9 @@ footer{
     display: flex;
     justify-content: center;
     align-items: flex-start;
-}
-
-.modal-content{
+  }
+  
+  .modal-content {
     width: 500px;
     resize: both;
     overflow: auto;
@@ -122,9 +171,9 @@ footer{
     padding-bottom: 15px;
     display: flex;
     flex-direction: column;
-}
-
-.modal-header{
+  }
+  
+  .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -132,11 +181,27 @@ footer{
     background-color: lightgray;
     margin-bottom: 25px;
     user-select: none;
-}
-
-.close-modal{
+  }
+  
+  .close-modal {
     background-color: transparent;
     border: none;
     font-size: 1.2em;
     cursor: pointer;
-}
+  }
+  
+  /* General Button Styles */
+  button {
+    cursor: pointer;
+  }
+  
+  /* Footer Styles */
+  footer {
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-column: 1 / 3;
+    font-weight: bold;
+  }

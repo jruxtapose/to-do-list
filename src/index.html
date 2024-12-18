@@ -7,14 +7,29 @@
 </head>
 <body>
     <div id="sidebar">
-        <div id="navigation-buttons">
+        <div id="top-buttons">
+            <h1>Pages</h1>
+            <div class="page-buttons">
+                <button id="show-all-tasks">All Tasks</button>
+                <button id="show-overdue-tasks">OverDue</button>
+            </div>
+
+        </div>
+        <div id="middle-buttons">
+            <header class="sidebar-projects-header">
+                <h1>Projects</h1>
+                <button id="add-project-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+                </button>
+            </header>
+            <main class="sidebar-projects-list">
+
+            </main>
+        </div>
+        <div id="bottom-buttons">
             <button id="add-task-button">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
                 Add Task
-            </button>
-            <button id="add-project-button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>playlist-plus</title><path d="M3 16H10V14H3M18 14V10H16V14H12V16H16V20H18V16H22V14M14 6H3V8H14M14 10H3V12H14V10Z" /></svg>
-                Add Project
             </button>
         </div>
     </div>

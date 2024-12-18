@@ -1,4 +1,4 @@
-import TaskDetailModal from "../classes/modals/taskdetailmodal";
+import UpdateTaskModal from "../classes/modals/updatetaskmodal";
 
 const taskListContainer = document.querySelector('#task-list-table');
 const renderTasks = (taskList, taskHandler) => {
@@ -6,6 +6,9 @@ const renderTasks = (taskList, taskHandler) => {
     const generateTableHeaders = (() => {
         const headerRow = document.createElement('tr');
 
+        const completeCell = document.createElement('th');
+        completeCell.textContent = 'Complete'
+        
         const titleCell = document.createElement('th');
         titleCell.textContent = 'Title';
         
@@ -21,12 +24,9 @@ const renderTasks = (taskList, taskHandler) => {
         const priorityCell = document.createElement('th');
         priorityCell.textContent = 'Priority';
         
-        const completeCell = document.createElement('th');
-        completeCell.textContent = 'Complete'
-        
         const buttonCell = document.createElement('th');
 
-        headerRow.append(titleCell, descriptionCell, projectCell, dueDateCell, priorityCell, completeCell, buttonCell);
+        headerRow.append(completeCell, titleCell, descriptionCell, projectCell, dueDateCell, priorityCell, buttonCell);
         taskListContainer.appendChild(headerRow);
     })();
 
@@ -38,55 +38,73 @@ const renderTasks = (taskList, taskHandler) => {
 const renderTask = (task, taskHandler) => {
     const taskRow = document.createElement('tr');
 
+    const completeCell = document.createElement('td');
+    completeCell.className = 'task-complete';
+    const completeCheckbox = document.createElement('input');
+    completeCheckbox.setAttribute('type', 'checkbox');
+    completeCheckbox.className = 'complete-checkbox';
+
+    completeCell.appendChild(completeCheckbox);
+
+    if (task.getComplete()){
+        completeCheckbox.checked = true;
+        taskRow.classList.add('task-is-complete');
+    } else {
+        completeCheckbox.checked = false;
+    }
+
+    completeCheckbox.addEventListener('change', () => {
+        taskHandler.updateTaskProperty(task, 'complete');
+        taskRow.classList.toggle('task-is-complete');
+    })
+
+    
     const titleCell = document.createElement('td');
+    titleCell.className = 'task-title';
     titleCell.textContent = task.getTitle();
 
     const descriptionCell = document.createElement('td');
+    descriptionCell.className = 'task-description';
     descriptionCell.textContent = task.getDescription();
 
     const projectCell = document.createElement('td');
+    projectCell.className = 'task-project';
     projectCell.textContent = task.getProject();
 
     const dueDateCell = document.createElement('td');
+    dueDateCell.className = 'task-due-date';
     if(task.getDueDate()){
+        const dueDate = new Date(task.getDueDate());
+        const today = new Date();
+        if (dueDate < today && !task.getComplete()) {
+            taskRow.classList.add('overdue-task');
+        }
         dueDateCell.textContent = task.getDueDate();
     }
 
     const priorityCell = document.createElement('td');
+    priorityCell.className = 'task-priority';
+    let taskPriority;
     if(task.getPriority() === 1){
-        priorityCell.textContent = 'Low';
+        taskPriority = 'Low';
+        taskRow.classList.add('low-priority-task')
     } else if (task.getPriority() === 2) {
-        priorityCell.textContent = 'Medium';
+        taskPriority = 'Medium';
+        taskRow.classList.add('medium-priority-task')
     } else if (task.getPriority() === 3) {
-        priorityCell.textContent = 'High';
+        taskPriority = 'High';
+        taskRow.classList.add('high-priority-task')
     }
+    priorityCell.textContent = `${taskPriority} Priority`
 
-    const completeCell = document.createElement('td');
-    if(task.getComplete()){
-        completeCell.textContent = 'Complete';
-    } else {
-        completeCell.textContent = 'Incomplete';
-    }
 
     const buttonCell = document.createElement('td');
-
-    const toggleCompleteButton = document.createElement('button');
-    toggleCompleteButton.className = 'toggle-complete';
-    toggleCompleteButton.textContent = 'Toggle Complete'
-    toggleCompleteButton.addEventListener('click', () => {
-        taskHandler.updateTaskProperty(task, 'complete');
-        if(task.getComplete()){
-            completeCell.textContent = 'Complete';
-        } else {
-            completeCell.textContent = 'Incomplete';
-        }
-    })
 
     const modifyTaskButton = document.createElement('button');
     modifyTaskButton.className = 'modify-task';
     modifyTaskButton.textContent = 'Modify'
 
-    const taskDetailModal = new TaskDetailModal(task, modifyTaskButton, taskHandler);
+    const updateTaskModal = new UpdateTaskModal(task, modifyTaskButton, taskHandler);
 
     const deleteTaskButton = document.createElement('button');
     deleteTaskButton.className = 'delete-task';
@@ -98,11 +116,12 @@ const renderTask = (task, taskHandler) => {
         }
     });
 
-    buttonCell.append(toggleCompleteButton, modifyTaskButton, deleteTaskButton);
+    buttonCell.append(modifyTaskButton, deleteTaskButton);
 
-    taskRow.append(titleCell, descriptionCell, projectCell, dueDateCell, priorityCell, completeCell, buttonCell);
+    taskRow.append(completeCell, titleCell, descriptionCell, projectCell, dueDateCell, priorityCell, buttonCell);
 
     taskListContainer.appendChild(taskRow);
+    task.setDomElement(taskRow);
 }
 
 export {

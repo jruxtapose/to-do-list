@@ -1,6 +1,8 @@
 import UpdateTaskModal from "../classes/modals/updatetaskmodal";
+import { format } from "date-fns";
 
 const taskListContainer = document.querySelector('#task-list-table');
+const dateFormat = require('date-fns/format');
 const renderTasks = (taskList, taskHandler) => {
     taskListContainer.textContent = '';
     const generateTableHeaders = (() => {
@@ -79,7 +81,8 @@ const renderTask = (task, taskHandler) => {
         if (dueDate < today && !task.getComplete()) {
             taskRow.classList.add('overdue-task');
         }
-        dueDateCell.textContent = task.getDueDate();
+        const formattedDueDate = format(task.getDueDate(), 'MMMM dd, yyyy')
+        dueDateCell.textContent = formattedDueDate;
     }
 
     const priorityCell = document.createElement('td');

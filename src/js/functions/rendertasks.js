@@ -39,20 +39,25 @@ const renderTask = (task, taskHandler) => {
     const taskRow = document.createElement('tr');
 
     const titleCell = document.createElement('td');
+    titleCell.className = 'task-title';
     titleCell.textContent = task.getTitle();
 
     const descriptionCell = document.createElement('td');
+    descriptionCell.className = 'task-description';
     descriptionCell.textContent = task.getDescription();
 
     const projectCell = document.createElement('td');
+    projectCell.className = 'task-project';
     projectCell.textContent = task.getProject();
 
     const dueDateCell = document.createElement('td');
+    dueDateCell.className = 'task-due-date';
     if(task.getDueDate()){
         dueDateCell.textContent = task.getDueDate();
     }
 
     const priorityCell = document.createElement('td');
+    priorityCell.className = 'task-priority';
     if(task.getPriority() === 1){
         priorityCell.textContent = 'Low';
     } else if (task.getPriority() === 2) {
@@ -62,6 +67,7 @@ const renderTask = (task, taskHandler) => {
     }
 
     const completeCell = document.createElement('td');
+    completeCell.className = 'task-complete';
     if(task.getComplete()){
         completeCell.textContent = 'Complete';
     } else {
@@ -103,6 +109,7 @@ const renderTask = (task, taskHandler) => {
     taskRow.append(titleCell, descriptionCell, projectCell, dueDateCell, priorityCell, completeCell, buttonCell);
 
     taskListContainer.appendChild(taskRow);
+    task.setDomElement(taskRow);
 }
 
 export {

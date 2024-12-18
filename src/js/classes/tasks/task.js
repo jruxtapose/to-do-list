@@ -64,4 +64,13 @@ export default class Task{
         this._project = null;
     }
 
+    // Used for addressing the DOM and updating.
+    setDomElement(element) {
+        this.domElement = element;
+    }
+
+    getDomElement() {
+        return this.domElement;
+    }
+
 }

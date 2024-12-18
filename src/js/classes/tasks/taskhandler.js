@@ -51,9 +51,9 @@ export default class TaskHandler{
                 task.toggleComplete();
                 break;
             case 'project':
-                if(newValue){
+                if(newValue !== '0'){
                     task.setProject(newValue);
-                } else {
+                } else if (newValue === '0') {
                     task.removeProject();
                 }
         }

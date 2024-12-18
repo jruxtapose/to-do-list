@@ -4,27 +4,39 @@ taskDetailTemplate.remove();
 
 export default class TaskDetailModal{
     constructor(task, triggerButton, taskHandler){
-        this.triggerButton = triggerButton,
-        this.template = taskDetailTemplate,
+        this.triggerButton = triggerButton;
+        this.template = taskDetailTemplate;
         this.modal = null;
         this.taskHandler = taskHandler;
-        this.task = task,
+        this.task = task;
+
+        
         this.triggerButton.addEventListener('click', () => this.openModal());
     };
 
     openModal() {
-        this.triggerButton.disabled = true;
         this.modal = this.template.cloneNode(true);
         this.modal.id = 'modify-task-modal';
         document.body.appendChild(this.modal);
+
+        this.titleInput = this.modal.querySelector('#modify-task-title');
+        this.descriptionInput = this.modal.querySelector('#modify-task-description');
+        this.dueDateInput = this.modal.querySelector('#modify-task-duedate');
+        this.projectSelect = this.modal.querySelector('#modify-task-project');
+        this.lowPriorityRadio = this.modal.querySelector('#modify-task-low-priority');
+        this.mediumPriorityRadio = this.modal.querySelector('#modify-task-medium-priority');
+        this.highPriorityRadio = this.modal.querySelector('#modify-task-high-priority');
+        this.triggerButton.disabled = true;
 
         this.populateForm();
 
         const closeButton = this.modal.querySelector('.close-modal');
         const cancelButton = this.modal.querySelector('.cancel-modal');
+        const modifyTaskForm = this.modal.querySelector('#modify-task-form');
 
         closeButton.addEventListener('click', () => this.closeModal());
         cancelButton.addEventListener('click', () => this.closeModal());
+        modifyTaskForm.addEventListener('submit', (event) => this.updateTask(event));
     }
 
     closeModal(){
@@ -34,20 +46,12 @@ export default class TaskDetailModal{
     }
 
     populateForm(){
-        const titleInput = this.modal.querySelector('#modify-task-title');
-        const descriptionInput = this.modal.querySelector('#modify-task-description');
-        const dueDateInput = this.modal.querySelector('#modify-task-duedate');
-        const projectSelect = this.modal.querySelector('#modify-task-project');
-        const lowPriorityRadio = this.modal.querySelector('#modify-task-low-priority');
-        const mediumPriorityRadio = this.modal.querySelector('#modify-task-medium-priority');
-        const highPriorityRadio = this.modal.querySelector('#modify-task-high-priority');
-
         // Populate fields with details
-        titleInput.value = this.task.getTitle();
-        descriptionInput.value = this.task.getDescription();
-        dueDateInput.value = this.task.getDueDate();
+        this.titleInput.value = this.task.getTitle();
+        this.descriptionInput.value = this.task.getDescription();
+        this.dueDateInput.value = this.task.getDueDate();
 
-        const projectOptions = projectSelect.options;
+        const projectOptions = this.projectSelect.options;
         for (let i = 0; i < projectOptions.length; i++){
             if(projectOptions[i].value === this.task.getProject()) {
                 projectOptions[i].selected = true;
@@ -57,15 +61,84 @@ export default class TaskDetailModal{
 
         const priority = this.task.getPriority();
         if (priority === 1) {
-            lowPriorityRadio.checked = true;
+            this.lowPriorityRadio.checked = true;
         } else if (priority === 2){
-            mediumPriorityRadio.checked = true;
+            this.mediumPriorityRadio.checked = true;
         } else if (priority === 3){
-            highPriorityRadio.checked = true;
+            this.highPriorityRadio.checked = true;
         }
     }
 
-    updateTask(){
+    updateTask(event){
+        event.preventDefault();
+
+        // Compare input values to set values and update if changed.
+        if(this.titleInput.value !== this.task.getTitle()){
+            this.taskHandler.updateTaskProperty(this.task, 'title', this.titleInput.value);
+        }
+
+        if(this.descriptionInput.value !== this.task.getDescription()){
+            this.taskHandler.updateTaskProperty(this.task, 'description', this.descriptionInput.value);
+        }
+
+        if(this.dueDateInput.value !== this.task.getDueDate()){
+            this.taskHandler.updateTaskProperty(this.task, 'dueDate', this.dueDateInput.value);
+        }
+
+        // Set priority based on checked box.
+
+        let priority;
+        if (this.lowPriorityRadio.checked) {
+            priority = 1;
+        } else if (this.mediumPriorityRadio.checked) {
+            priority = 2;
+        } else if (this.highPriorityRadio.checked) {
+            priority = 3;
+        }
+
+        // Compare checked priority to existing priority and update if different.
+        if (priority !== this.task.getPriority()) {
+            this.taskHandler.updateTaskProperty(this.task, 'priority', priority);
+        }
+
+        const selectedProject = this.projectSelect.value;
+
+        if (selectedProject !== this.task.getProject()) {
+            this.taskHandler.updateTaskProperty(this.task, 'project', selectedProject);
+        }
+
+        const taskElement = this.task.getDomElement();
+
+        const titleCell = taskElement.querySelector('.task-title');
+        titleCell.textContent = this.task.getTitle();
+
+        const descriptionCell = taskElement.querySelector('.task-description');
+        descriptionCell.textContent = this.task.getDescription();
+
+        const projectCell = taskElement.querySelector('.task-project');
+        projectCell.textContent = this.task.getProject();
+
+        const dueDateCell = taskElement.querySelector('.task-due-date');
+        dueDateCell.textContent = this.task.getDueDate();
+
+        const priorityCell = taskElement.querySelector('.task-priority');
+        if (this.task.getPriority() === 1) {
+            priorityCell.textContent = 'Low';
+        } else if (this.task.getPriority === 2) {
+            priorityCell.textContent = 'Medium';
+        } else if (this.task.getPriority === 3) {
+            priorityCell.textContent = 'High';
+        }
+
+        const completeCell = taskElement.querySelector('.task-complete');
+        if (this.task.getComplete()) {
+            completeCell.textContent = 'Complete';
+        } else {
+            completeCell.textContent = 'Incomplete';
+        }
+
+        this.closeModal();
+
 
     }
 

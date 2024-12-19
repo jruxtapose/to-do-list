@@ -17,6 +17,7 @@ export default class TaskHandler{
         try {
             this.tasks = loadTasks().map(taskData => {
                 const task = new Task(taskData._title, taskData._description, taskData._dueDate, taskData._priority, taskData._complete);
+                task._createdOn = taskData._createdOn;
                 task.setProject(taskData._project);
                 return task;
             });

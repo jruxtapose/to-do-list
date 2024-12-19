@@ -1,7 +1,7 @@
 // Exported function is a switch that calls the requested method of sorting. taskHandler instance is passed into this as an argument to ensure only one instance
 // of the taskhandler needs to be created.
 
-export default function filterTasks(taskHandler, filter, project, priority){
+export default function filterTasks(taskHandler, filter, project, priority, completeStatus){
 
     switch(filter){
         case 'all':
@@ -16,6 +16,8 @@ export default function filterTasks(taskHandler, filter, project, priority){
             return filterByPriority(taskHandler, priority);
         case 'project':
             return filterByProject(taskHandler, project);
+        case 'complete':
+            return filterByComplete(taskHandler, completeStatus)
         default:
             throw console.error('Invalid filter method');
     }
@@ -61,4 +63,11 @@ const filterByNextSevenDays = (taskHandler) => {
         const dueDate = new Date(task.getDueDate());
         return dueDate >= today && dueDate <= sevenDaysFromNow;
     });
+}
+
+const filterByComplete = (taskHandler, completeStatus) => {
+    return taskHandler.getAllTasks().filter((task) => {
+        const complete = task.getComplete();
+        return complete === completeStatus;
+    })
 }

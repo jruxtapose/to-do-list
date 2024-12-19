@@ -1,4 +1,6 @@
 import "../../../css/updatetaskmodal.css"
+import { format } from "date-fns";
+import { renderCurrentTasks } from "../..";
 const updateTaskModalTemplate = document.querySelector('#modify-task-modal-template');
 updateTaskModalTemplate.remove();
 
@@ -40,10 +42,17 @@ export default class UpdateTaskModal{
 
         const closeButton = this.modal.querySelector('.close-modal');
         const cancelButton = this.modal.querySelector('.cancel-modal');
+        const deleteButton = this.modal.querySelector('.delete-task');
         const modifyTaskForm = this.modal.querySelector('#modify-task-form');
 
         closeButton.addEventListener('click', () => this.closeModal());
         cancelButton.addEventListener('click', () => this.closeModal());
+        deleteButton.addEventListener('click', () => {
+            if (confirm('Are you sure?')) {
+                this.taskHandler.removeTask(this.task)
+                renderCurrentTasks();
+            }
+        });
         modifyTaskForm.addEventListener('submit', (event) => this.updateTask(event));
     }
 
@@ -57,7 +66,16 @@ export default class UpdateTaskModal{
         // Populate fields with details
         this.titleInput.value = this.task.getTitle();
         this.descriptionInput.value = this.task.getDescription();
-        this.dueDateInput.value = this.task.getDueDate();
+
+        const dueDate = new Date(this.task.getDueDate());
+        let formattedDueDate;
+        if (dueDate) {
+            const year = dueDate.getFullYear();
+            const month = String(dueDate.getMonth() + 1).padStart(2, '0');
+            const day = String(dueDate.getDate()).padStart(2, '0');
+            formattedDueDate = `${year}-${month}-${day}`;
+        }
+        this.dueDateInput.value = formattedDueDate;
 
         const projectOptions = this.projectSelect.options;
         for (let i = 0; i < projectOptions.length; i++){
@@ -89,10 +107,16 @@ export default class UpdateTaskModal{
             this.taskHandler.updateTaskProperty(this.task, 'description', this.descriptionInput.value);
         }
 
-        if(this.dueDateInput.value !== this.task.getDueDate()){
-            this.taskHandler.updateTaskProperty(this.task, 'dueDate', this.dueDateInput.value);
+        const newDueDateInput = this.dueDateInput.value;
+        let newDueDate;
+        if (newDueDateInput) {
+            const [year, month, day] = newDueDateInput.split('-').map(Number);
+            newDueDate = new Date(year, month -1, day, 23, 59, 59, 599);
         }
 
+        if(newDueDate !== this.task.getDueDate()) {
+            this.taskHandler.updateTaskProperty(this.task, 'dueDate', newDueDate);
+        }
         // Set priority based on checked box.
 
         let priority;
@@ -115,29 +139,8 @@ export default class UpdateTaskModal{
             this.taskHandler.updateTaskProperty(this.task, 'project', selectedProject);
         }
 
-        const taskElement = this.task.getDomElement();
-
-        const titleCell = taskElement.querySelector('.task-title');
-        titleCell.textContent = this.task.getTitle();
-
-        const descriptionCell = taskElement.querySelector('.task-description');
-        descriptionCell.textContent = this.task.getDescription();
-
-        const projectCell = taskElement.querySelector('.task-project');
-        projectCell.textContent = this.task.getProject();
-
-        const dueDateCell = taskElement.querySelector('.task-due-date');
-        dueDateCell.textContent = this.task.getDueDate();
-
-        const priorityCell = taskElement.querySelector('.task-priority');
-        if (this.task.getPriority() === 1) {
-            priorityCell.textContent = 'Low';
-        } else if (this.task.getPriority === 2) {
-            priorityCell.textContent = 'Medium';
-        } else if (this.task.getPriority === 3) {
-            priorityCell.textContent = 'High';
-        }
-
+        renderCurrentTasks();
+        
         this.closeModal();
 
 

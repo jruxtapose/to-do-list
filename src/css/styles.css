@@ -102,6 +102,13 @@
   #add-task-button svg {
     width: 2em;
   }
+
+  .sort-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+  }
   
   /* Task List Styles */
   .table-container {

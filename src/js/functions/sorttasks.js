@@ -28,14 +28,6 @@ const sortByDate = (taskList, direction) => {
     taskList.sort((a, b) => {
         const dueDateA = a.getDueDate();
         const dueDateB = b.getDueDate();
-        const completeA = a.getComplete();
-        const completeB = b.getComplete();
-
-        if (completeA && !completeB) {
-            return 1;
-        } else if (!completeA && completeB) {
-            return -1;
-        }
 
         if (!dueDateA && !dueDateB) {
             return 0;
@@ -107,8 +99,8 @@ const sortByProject = (taskList, direction) => {
             return direction === 'asc' ? 1: -1;
         }else{
             return direction === 'asc'
-                ? projectA.localCompare(projectB)
-                : projectB.localCompare(projectA);
+                ? projectA.localeCompare(projectB)
+                : projectB.localeCompare(projectA);
         }
         
     })

@@ -85,9 +85,11 @@ sortByProjectButton.addEventListener('click', () => {
     currentSortDirection = currentSortDirection === 'asc' ? 'dsc' : 'asc';
     renderCurrentTasks();
 })
+
 const renderProject = () => {
     const projectsList = taskHandler.getAllProjects();
     const projectsListContainer = document.querySelector('.sidebar-projects-list');
+    projectsListContainer.textContent = '';
 
     if (projectsList.length > 0) {
         projectsList.forEach(project => {

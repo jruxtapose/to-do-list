@@ -1,5 +1,6 @@
 import "../../../css/newtaskmodal.css"
 import { renderTask } from "../../functions/rendertasks";
+import { renderCurrentTasks } from "../..";
 const newTaskTemplate = document.querySelector('#new-task-modal-template');
 newTaskTemplate.remove();
 
@@ -48,7 +49,16 @@ export default class NewTaskModal{
 
         const title = this.modal.querySelector('#new-task-title').value;
         const description = this.modal.querySelector('#new-task-description').value;
-        const dueDate = this.modal.querySelector('#new-task-duedate').value;
+
+        // Trick to force date to match picker.
+
+        const dueDateInput = this.modal.querySelector('#new-task-duedate').value;
+        let dueDate;
+        if (dueDateInput) {
+            const [year, month, day] = dueDateInput.split('-').map(Number);
+            dueDate = new Date(year, month -1, day, 23, 59, 59, 999);
+        }
+
         const project = this.modal.querySelector('#new-task-project').value;
         //Get selected priority
         let priority;
@@ -69,7 +79,8 @@ export default class NewTaskModal{
             this.taskHandler.setProjectToTask(project, newTask);
         }
 
-        renderTask(newTask, this.taskHandler);
+        renderCurrentTasks();
+        
         this.closeModal();
 
     }

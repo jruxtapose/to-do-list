@@ -119,6 +119,19 @@
     border-top-left-radius: 25px;
     border: 1px solid black;
   }
+
+  .task-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .task-buttons button {
+    background-color: transparent;
+    border: none;
+    width: 2em;
+    height: 2em;
+  }
   
   #task-list-table>tr:nth-child(odd) {
     background-color: lightgray;
@@ -126,7 +139,7 @@
   
   /* Task Due Date and Completion Styles */
   #task-list-table tr.task-is-complete .task-due-date,
-  #task-list-table tr.task-is-complete { /* Combined selectors */
+  #task-list-table tr.task-is-complete {
     color: gray;
     text-decoration: line-through;
   }
@@ -135,7 +148,7 @@
     color: red;
   }
   
-  #task-list-table tr.task-is-complete .priority {
+  #task-list-table tr.task-is-complete .task-priority {
     color: gray;
   }
   

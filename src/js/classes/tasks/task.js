@@ -8,6 +8,7 @@ export default class Task{
         this._priority = priority,
         this._complete = complete;
         this._project = null;
+        this._createdOn = new Date();
     }
 
     // Get/Set each property
@@ -62,6 +63,10 @@ export default class Task{
 
     removeProject(){
         this._project = null;
+    }
+
+    getCreatedOn(){
+        return this._createdOn;
     }
 
     // Used for addressing the DOM and updating.

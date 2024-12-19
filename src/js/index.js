@@ -93,7 +93,8 @@ function renderCurrentTasks() {
 }
 
 export {
-    renderProject
+    renderProject,
+    renderCurrentTasks
 }
 
 

@@ -108,6 +108,16 @@
     justify-content: center;
     align-items: center;
     height: 50px;
+    gap: 15px;
+  }
+
+  .sort-buttons button {
+    padding: 5px 10px;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 10px;
   }
   
   /* Task List Styles */

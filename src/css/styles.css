@@ -1,184 +1,203 @@
-/* General Styles */
-* {
-    margin: 0;
+*{
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+:root{
+
+}
+
+body{
+    display: flex;
     min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+}
+
+.app-container{
+    background-color: lightblue;
+    min-width: 800px;
+    width: 80vw;
+    height: 80vh;
+    border-radius: 1em;
     display: grid;
-    grid-template-columns: 1.5fr 7fr;
-    grid-template-rows: 1fr 50px;
-  }
-  
-  /* Sidebar Styles */
-  #sidebar {
-    background-color: green;
+    grid-template-columns: minmax(200px, .20fr) minmax(min-content, 1fr);
+    grid-template-rows: min-content 1fr;
+    grid-template-areas: 
+        "sidebar topbar"
+        "sidebar main";
+}
+
+.sidebar{
+    grid-area: sidebar;
+    background-color: lightgoldenrodyellow;
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+    padding: 1em;
+    overflow: scroll;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 15px 10px;
-  }
+    height: 100%;
+}
 
-  #today-date-container {
-    font-size: 1.1em;
-    padding-bottom: 10px;
-  }
-
-  #today-date {
-    font-weight: bold;
-  }
-
-  .page-buttons {
-    display: flex;
-    flex-direction: column;
-    padding-left: 15px;
-    gap: 10px;
-    padding-top: 10px;
-  }
-
-  .page-buttons button {
+button {
+    cursor: pointer;
     background-color: transparent;
     border: none;
     text-align: left;
-    font-size: 1.2em;
-  }
-  
-  .sidebar-projects-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  #add-project-button {
-    height: 2em;
-    width: 2em;
-  }
-  
-  .sidebar-projects-list {
-    padding-left: 15px;
+    font-size: 1.1em;
+}
+
+button:hover img {
+    filter:invert(.2)
+}
+
+.page-buttons,
+.project-buttons {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding-top: 15px;
-  }
-  
-  .project {
+    gap: .25em;
+    padding-top: .5em
+}
+
+.sidebar-header {
+    padding-top: 1em;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding-right: 25px;
-  }
-  
-  .project-button {
-    background-color: transparent;
-    border: none;
-    font-size: 1.2em;
-  }
-  
-  .delete-project {
-    width: 2em;
-    background-color: transparent;
-    border: none;
-  }
-  
-  .delete-project svg {
-    fill: white;
-  }
+    align-items: center;
 
-  .delete-project svg:hover {
+    & h2 {
+        font-size: 1.5em;
+    }
+
+}
+
+.page-buttons,
+.project-buttons {
+    padding-left: 1em;
+}
+
+.sidebar button:hover {
+    font-weight: bold;
+}
+
+.projects {
+    overflow-y: auto;
+    margin-bottom: 1em;
+}
+
+.add-new-project img {
+    width: 1em;
+    height: 1em;
+}
+
+.project-button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-button svg {
+    width: 1.1em;
+    height: 1.1em;
+}
+
+.delete-button:hover svg {
     fill: gray;
-  }
-  
-  #add-task-button {
-    height: 2em;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  #add-task-button svg {
-    width: 2em;
-  }
+}
 
-  .sort-buttons {
+
+
+.add-new-task{
+    margin-top: auto;
+}
+
+.topbar{
+    grid-area: topbar;
+    padding: 1em;
+}
+
+.sort-buttons{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-  }
-  
-  /* Task List Styles */
-  .table-container {
-    display: flex;
-    justify-content: center;
-  }
-  
-  #task-list-table {
-    width: 80%;
-    margin: 15px;
-    text-align: center;
-  }
-  
-  tr {
-    border-top-left-radius: 25px;
+    justify-content: space-around;
+    padding-top: 15px;
+}
+
+.sort-button{
     border: 1px solid black;
-  }
+    padding: 5px 15px;
+    border-radius: 1em;
+    background-color: lightgoldenrodyellow;
+}
 
-  .task-buttons {
+.main {
+    grid-area: main;
     display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    flex-direction: column;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
 
-  .task-buttons button {
-    background-color: transparent;
-    border: none;
-    width: 2em;
-    height: 2em;
-  }
-  
-  #task-list-table>tr:nth-child(odd) {
+.task-card {
     background-color: lightgray;
-  }
-  
-  /* Task Due Date and Completion Styles */
-  #task-list-table tr.task-is-complete .task-due-date,
-  #task-list-table tr.task-is-complete {
-    color: gray;
-    text-decoration: line-through;
-  }
-  
-  #task-list-table tr.overdue-task .task-due-date {
+    margin: 1em;
+    border-radius: 1em;
+    padding: 1em;
+
+    & .task-card-top-row {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 1em;
+    }
+
+    & .task-project {
+        padding-left: 5px;
+    }
+
+    & .task-due-date {
+        padding-bottom: 1em;
+        padding-left: 1em;
+    }
+
+    & .task-description {
+        padding-left: 1.5em;
+        padding-bottom: 1em;
+    }
+
+    & .task-card-bottom-row {
+        display: flex;
+        justify-content: space-between;
+
+        & .task-complete-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    }
+}
+
+.high-priority {
+    border: 1px solid red;
+}
+
+.medium-priority {
+    border: 1px solid orange;
+}
+
+.low-priority {
+    border: 1px solid green;
+}
+
+.overdue-task .task-due-date {
     color: red;
-  }
-  
-  #task-list-table tr.task-is-complete .task-priority {
-    color: gray;
-  }
-  
-  /* Task Priority Styles */
-  .high-priority-task>.task-priority {
-    color: red;
-  }
-  
-  .medium-priority-task>.task-priority {
-    color: orange;
-  }
-  
-  .low-priority-task>.task-priority {
-    color: green;
-  }
-  
-  /* Modal Styles */
-  #new-task-modal-template,
-  #modify-task-modal-template {
+}
+
+.modals {
     display: none;
-  }
-  
-  .modal-overlay {
+}
+
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -190,18 +209,18 @@
     justify-content: center;
     align-items: flex-start;
   }
-  
+
   .modal-content {
     width: 500px;
-    resize: both;
     overflow: auto;
     background-color: white;
     border: 1px solid black;
+    border-radius: .5em;
     padding-bottom: 15px;
     display: flex;
     flex-direction: column;
   }
-  
+
   .modal-header {
     display: flex;
     justify-content: space-between;
@@ -211,26 +230,97 @@
     margin-bottom: 25px;
     user-select: none;
   }
-  
+
   .close-modal {
-    background-color: transparent;
-    border: none;
-    font-size: 1.2em;
-    cursor: pointer;
+    font-size: 1.1em;
   }
-  
-  /* General Button Styles */
-  button {
-    cursor: pointer;
-  }
-  
-  /* Footer Styles */
-  footer {
-    background-color: lightgray;
+
+  #modify-task-form{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    grid-column: 1 / 3;
-    font-weight: bold;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
   }
+
+  #modify-task-form div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  #modify-task-form textarea {
+    height: 100px;
+  }
+
+  #modify-task-form .modify-task-priority-container,
+  #new-task-form .new-task-priority-container {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+.priority-radio {
+    font-weight: bold;
+}
+
+  .low-priority-radio {
+    color:green;
+  }
+
+  .medium-priority-radio {
+    color: orange;
+  }
+
+  .high-priority-radio {
+    color: red;
+  }
+
+#modify-task-form .form-buttons,
+#new-task-form .form-buttons {
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+
+.form-buttons button {
+    border: 1px solid black;
+    border-radius: .5em;
+    padding: 5px 15px;
+}
+
+.form-buttons button:hover {
+    background-color: lightgray;
+}
+
+.no-available-tasks {
+    font-weight: bold;
+    margin: 1em;
+    padding: 1em;
+    background-color: lightgray;
+    border-radius: 1em;
+}
+
+#new-task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
+}
+
+#new-task-form div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#new-task-form textarea {
+    height: 100px;
+}
+
+#add-project-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
+    align-items: center;
+}
+

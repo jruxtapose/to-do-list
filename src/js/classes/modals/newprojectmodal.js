@@ -1,4 +1,3 @@
-import "../../../css/newprojectmodal.css"
 import { renderProject } from "../..";
 const newProjectTemplate = document.querySelector('#add-project-modal-template');
 newProjectTemplate.remove();

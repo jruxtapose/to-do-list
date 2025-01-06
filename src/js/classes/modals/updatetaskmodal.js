@@ -18,6 +18,7 @@ export default class UpdateTaskModal{
     openModal() {
         this.modal = this.template.cloneNode(true);
         this.modal.id = 'modify-task-modal';
+        this.modal.className = 'modal';
         document.body.appendChild(this.modal);
 
         this.titleInput = this.modal.querySelector('#modify-task-title');

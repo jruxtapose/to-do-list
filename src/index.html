@@ -14,13 +14,13 @@
                     <h2>Pages</h2>
                 </div>
                 <div class="page-buttons">
-                    <button>All Tasks</button>
-                    <button>High Priority</button>
-                    <button>Overdue</button>
-                    <button>Today</button>
-                    <button>Next 7 Days</button>
-                    <button>Incomplete</button>
-                    <button>Complete</button>
+                    <button id="show-all-tasks">All Tasks</button>
+                    <button id="show-high-priority-tasks">High Priority</button>
+                    <button id="show-overdue-tasks">Overdue</button>
+                    <button id="show-today-tasks">Today</button>
+                    <button id="show-next-seven-days-tasks">Next 7 Days</button>
+                    <button id="show-incomplete-tasks">Incomplete</button>
+                    <button id="show-complete-tasks">Complete</button>
                 </div>
             </div>
             <div class="projects">
@@ -50,6 +50,11 @@
         </div>
         <div class="topbar">
                 <h1 class="page-title">All Tasks</h1>
+                <div class="sort-buttons">
+                    <button id="sort-by-date" class="sort-button">Sort by Date</button>
+                    <button id="sort-by-priority" class="sort-button">Sort by Priority</button>
+                    <button id="sort-by-project" class="sort-button">Sort by Project</button>
+                </div>
         </div>
         <div class="main">
             <div class="task-card">
@@ -121,9 +126,9 @@
                             </div>
                             <div class="modify-task-priority-container">
                                 <label for="modify-task-priority">Priority:</label>
-                                <input type="radio" name="modify-task-priority" id="modify-task-low-priority" class="task-low-priority" required>
-                                <input type="radio" name="modify-task-priority" id="modify-task-medium-priority" class="task-medium-priority">
-                                <input type="radio" name="modify-task-priority" id="modify-task-high-priority" class="task-high-priority">
+                                <label class="low-priority-radio priority-radio">Low <input type="radio" name="modify-task-priority" id="modify-task-low-priority" class="task-low-priority" required></label>
+                                <label class="medium-priority-radio priority-radio">Medium <input type="radio" name="modify-task-priority" id="modify-task-medium-priority" class="task-medium-priority"></label>
+                                <label class="high-priority-radio priority-radio">High <input type="radio" name="modify-task-priority" id="modify-task-high-priority" class="task-high-priority"></label>
                             </div>
                             <div class="form-buttons">
                                 <button type="submit" id="save-modified-task">Save</button>
@@ -163,9 +168,9 @@
                             </div>
                             <div class="new-task-priority-container">
                                 <label for="new-task-priority">Priority:</label>
-                                <input type="radio" name="new-task-priority" id="new-task-low-priority" class="task-low-priority" required>
-                                <input type="radio" name="new-task-priority" id="new-task-medium-priority" class="task-medium-priority">
-                                <input type="radio" name="new-task-priority" id="new-task-high-priority" class="task-high-priority">
+                                <label class="low-priority-radio priority-radio">Low <input type="radio" name="new-task-priority" id="new-task-low-priority" class="task-low-priority" required></label>
+                                <label class="medium-priority-radio priority-radio">Medium <input type="radio" name="new-task-priority" id="new-task-medium-priority" class="task-medium-priority"></label>
+                                <label class="high-priority-radio priority-radio">High <input type="radio" name="new-task-priority" id="new-task-high-priority" class="task-high-priority"></label>
                             </div>
                             <div class="form-buttons">
                                 <button type="submit" id="save-new-task">Save</button>

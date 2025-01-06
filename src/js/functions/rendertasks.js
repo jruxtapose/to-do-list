@@ -39,6 +39,13 @@ const renderTask = (task, taskHandler) => {
     taskCardTopRow.append(taskTitle, taskPriority);
     taskCard.appendChild(taskCardTopRow);
 
+    const taskProject = document.createElement('h3');
+    taskProject.className = 'task-project';
+    if (task.getProject()) {
+        taskProject.textContent = task.getProject();
+    }
+    taskCard.appendChild(taskProject);
+
     const taskDueDate = document.createElement('h4');
     taskDueDate.className = 'task-due-date';
     if(task.getDueDate()){
@@ -87,9 +94,7 @@ const renderTask = (task, taskHandler) => {
     const modifyButton = document.createElement('button');
     modifyButton.className = 'modify-button';
     modifyButton.textContent = 'Update';
-    modifyButton.addEventListener('click', () => {
-        console.log('Update clicked.');
-    })
+    const updateTaskModal = new UpdateTaskModal(task, modifyButton, taskHandler);
 
     taskCardBottomRow.append(taskCompleteLabel, modifyButton);
 

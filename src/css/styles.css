@@ -98,9 +98,13 @@ button:hover img {
     justify-content: space-between;
 }
 
-.delete-button img {
+.delete-button svg {
     width: 1.1em;
     height: 1.1em;
+}
+
+.delete-button:hover svg {
+    fill: gray;
 }
 
 
@@ -112,6 +116,19 @@ button:hover img {
 .topbar{
     grid-area: topbar;
     padding: 1em;
+}
+
+.sort-buttons{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 15px;
+}
+
+.sort-button{
+    border: 1px solid black;
+    padding: 5px 15px;
+    border-radius: 1em;
+    background-color: lightgoldenrodyellow;
 }
 
 .main {
@@ -132,6 +149,10 @@ button:hover img {
         display: flex;
         justify-content: space-between;
         padding-bottom: 1em;
+    }
+
+    & .task-project {
+        padding-left: 5px;
     }
 
     & .task-due-date {
@@ -175,3 +196,131 @@ button:hover img {
 .modals {
     display: none;
 }
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding-top: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .modal-content {
+    width: 500px;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: .5em;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 15px;
+    background-color: lightgray;
+    margin-bottom: 25px;
+    user-select: none;
+  }
+
+  .close-modal {
+    font-size: 1.1em;
+  }
+
+  #modify-task-form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
+  }
+
+  #modify-task-form div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  #modify-task-form textarea {
+    height: 100px;
+  }
+
+  #modify-task-form .modify-task-priority-container,
+  #new-task-form .new-task-priority-container {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+.priority-radio {
+    font-weight: bold;
+}
+
+  .low-priority-radio {
+    color:green;
+  }
+
+  .medium-priority-radio {
+    color: orange;
+  }
+
+  .high-priority-radio {
+    color: red;
+  }
+
+#modify-task-form .form-buttons,
+#new-task-form .form-buttons {
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+
+.form-buttons button {
+    border: 1px solid black;
+    border-radius: .5em;
+    padding: 5px 15px;
+}
+
+.form-buttons button:hover {
+    background-color: lightgray;
+}
+
+.no-available-tasks {
+    font-weight: bold;
+    margin: 1em;
+    padding: 1em;
+    background-color: lightgray;
+    border-radius: 1em;
+}
+
+#new-task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
+}
+
+#new-task-form div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#new-task-form textarea {
+    height: 100px;
+}
+
+#add-project-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
+    align-items: center;
+}
+

@@ -1,4 +1,3 @@
-import "../../../css/updatetaskmodal.css"
 import { format } from "date-fns";
 import { renderCurrentTasks } from "../..";
 const updateTaskModalTemplate = document.querySelector('#modify-task-modal-template');

@@ -1,4 +1,3 @@
-import "../../../css/newtaskmodal.css"
 import { renderTask } from "../../functions/rendertasks";
 import { renderCurrentTasks } from "../..";
 const newTaskTemplate = document.querySelector('#new-task-modal-template');

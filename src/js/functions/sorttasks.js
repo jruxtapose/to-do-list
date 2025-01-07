@@ -28,6 +28,14 @@ const sortByDate = (taskList, direction) => {
     taskList.sort((a, b) => {
         const dueDateA = a.getDueDate();
         const dueDateB = b.getDueDate();
+        const completeA = a.getComplete();
+        const completeB = b.getComplete();
+
+        if (completeA && !completeB) {
+            return 1;
+        } else if (!completeA && completeB) {
+            return -1;
+        }
 
         if (!dueDateA && !dueDateB) {
             return 0;
@@ -52,6 +60,14 @@ const sortByPriority = (taskList, direction) => {
     taskList.sort((a, b) => {
         const priorityA = a.getPriority();
         const priorityB = b.getPriority();
+        const completeA = a.getComplete();
+        const completeB = b.getComplete();
+
+        if (completeA && !completeB) {
+            return 1;
+        } else if (!completeA && completeB) {
+            return -1;
+        }
 
         if (direction === 'asc'){
             return priorityA - priorityB;
@@ -90,6 +106,14 @@ const sortByProject = (taskList, direction) => {
     taskList.sort((a,b) => {
         const projectA = a.getProject();
         const projectB = b.getProject();
+        const completeA = a.getComplete();
+        const completeB = b.getComplete();
+
+        if (completeA && !completeB) {
+            return 1;
+        } else if (!completeA && completeB) {
+            return -1;
+        }
 
         if (projectA === null && projectB === null){
             return 0;

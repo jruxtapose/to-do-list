@@ -50,9 +50,7 @@ button {
     font-size: 1.1em;
 }
 
-button:hover img {
-    filter:invert(.2)
-}
+
 
 .page-buttons,
 .project-buttons {
@@ -88,9 +86,13 @@ button:hover img {
     margin-bottom: 1em;
 }
 
-.add-new-project img {
+.add-new-project svg {
     width: 1em;
     height: 1em;
+}
+
+.add-new-project:hover svg {
+    fill: gray;
 }
 
 .project-button-container {
@@ -129,6 +131,17 @@ button:hover img {
     padding: 5px 15px;
     border-radius: 1em;
     background-color: lightgoldenrodyellow;
+}
+
+.sort-method {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.sort-method svg {
+    width: 1.2em;
+    height: 1.2em;
 }
 
 .main {
@@ -174,19 +187,28 @@ button:hover img {
             align-items: center;
             gap: 5px;
         }
+
+        & button svg {
+            height: 1.2em;
+            width: 1.2em;
+        }
+
+        & button:hover svg {
+            fill: gray;
+        }
     }
 }
 
-.high-priority {
-    border: 1px solid red;
+.high-priority .task-priority {
+    color: red;
 }
 
-.medium-priority {
-    border: 1px solid orange;
+.medium-priority .task-priority {
+    color: orange;
 }
 
-.low-priority {
-    border: 1px solid green;
+.low-priority .task-priority {
+    color: green;
 }
 
 .overdue-task .task-due-date {
@@ -324,3 +346,10 @@ button:hover img {
     align-items: center;
 }
 
+.complete-task {
+    text-decoration: line-through;
+    color: gray;
+    & button svg {
+        fill: gray;
+    }
+}

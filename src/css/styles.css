@@ -5,7 +5,9 @@
 }
 
 :root{
-
+    --body-bg-color: #ecfeff;
+    --sidebar-bg-color: #a5f3fc;
+    --main-bg-color: #cffafe;
 }
 
 body{
@@ -13,11 +15,11 @@ body{
     min-height: 100vh;
     justify-content: center;
     align-items: center;
-    background-color: lightgray;
+    background-color: var(--body-bg-color);
 }
 
 .app-container{
-    background-color: lightblue;
+    background-color: var(--main-bg-color);
     min-width: 800px;
     width: 80vw;
     height: 80vh;
@@ -32,7 +34,7 @@ body{
 
 .sidebar{
     grid-area: sidebar;
-    background-color: lightgoldenrodyellow;
+    background-color: var(--sidebar-bg-color);
     border-top-left-radius: 1em;
     border-bottom-left-radius: 1em;
     padding: 1em;
@@ -115,6 +117,7 @@ button {
     margin-top: auto;
 }
 
+
 .topbar{
     grid-area: topbar;
     padding: 1em;
@@ -130,7 +133,7 @@ button {
     border: 1px solid black;
     padding: 5px 15px;
     border-radius: 1em;
-    background-color: lightgoldenrodyellow;
+    background-color: var(--sidebar-bg-color);
 }
 
 .sort-method {
@@ -153,7 +156,7 @@ button {
 }
 
 .task-card {
-    background-color: lightgray;
+    background-color: var(--body-bg-color);
     margin: 1em;
     border-radius: 1em;
     padding: 1em;

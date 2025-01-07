@@ -11,7 +11,7 @@ const saveProjects = (projectList) => {
 }
 
 // Pull all saved tasks & projects from JSON and parse.
-const defaultTasksJSON = '[{"_title":"Very late thing","_description":"I was due a WHILE ago.","_dueDate":"2024-09-10","_priority":3,"_complete":false,"_project":null,"domElement":{}},{"_title":"Do random thing","_description":"","_dueDate":"2024-12-06","_priority":2,"_complete":false,"_project":"Random Project","domElement":{}},{"_title":"Do small thing","_description":"","_dueDate":"2024-12-26","_priority":1,"_complete":false,"_project":"Small Project","domElement":{}},{"_title":"Do big thing","_description":"","_dueDate":"2024-12-31","_priority":3,"_complete":false,"_project":"Big Project","domElement":{}},{"_title":"No due date","_description":"I\'m due whenever.","_dueDate":"","_priority":1,"_complete":false,"_project":null,"domElement":{}},{"_title":"Complete Task","_description":"I\'m done. Yay.","_dueDate":"2024-12-31","_priority":3,"_complete":true,"_project":"Big Project","domElement":{}}]'
+const defaultTasksJSON = '[{"_title":"Default Task","_description":"Hello! \\n\\nYou may change or delete this task by clicking the modify icon in the lower right hand corner. \\n\\nTo add new projects, press the plus icon next to \'Projects\' to the left, and you may delete empty projects by clicking the trash icon next to them. \\n\\nTo add a new task, press the \'Add New Task\' button at the bottom of the sidebar.","_priority":3,"_complete":false,"_project":"Default Project","_createdOn":"2025-01-07T18:45:24.828Z"}]';
 
 const loadTasks = () => {
     if(!localStorage.getItem('saved-tasks')){
@@ -22,7 +22,7 @@ const loadTasks = () => {
     }
 }
 
-const defaultProjectsJSON = '["Big Project","Small Project","Random Project"]'
+const defaultProjectsJSON = '["Default Project"]'
 
 const loadProjects = () => {
     if(!localStorage.getItem('saved-projects')){

@@ -90,9 +90,6 @@ const renderTask = (task, taskHandler) => {
     };
     taskComplete.addEventListener('change', () => {
         taskHandler.updateTaskProperty(task, 'complete');
-        if (task.getComplete()) {
-            console.log(`${task.getTitle()} marked complete.`)
-        }
         renderCurrentTasks();
     })
     taskCompleteLabel.appendChild(taskComplete);

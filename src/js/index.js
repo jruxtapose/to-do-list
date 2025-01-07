@@ -105,10 +105,6 @@ const renderProject = () => {
     if (projectsList.length > 0) {
         
         projectsList.forEach(project => {
-            const deleteIcon = document.createElement('img');
-            deleteIcon.src = '../images/svg/delete.svg';
-            deleteIcon.alt = 'Delete';
-            console.log(deleteIcon);
             const buttonContainer = document.createElement('div');
             buttonContainer.className = 'project-button-container';
 
@@ -127,7 +123,6 @@ const renderProject = () => {
 
             const deleteButton = document.createElement('button');
             deleteButton.className = 'delete-button';
-            deleteButton.appendChild(deleteIcon);
             deleteButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" /></svg>'
             deleteButton.addEventListener('click', () => {
                 if(confirm('Are you sure?')){
